@@ -1,0 +1,579 @@
+<ion-view title="Filtering" cache-view="false">
+  <ion-content class="padding">
+
+    <div ng-if="hasQuestion()" class="text-center">
+      <h3>Filter responses</h3>
+      <i>{{question.q}}</i>
+    </div>
+    <div ng-if="!hasQuestion()" class="text-center">
+      <h3>Recommend to respondents</h3>
+      <i>{{$root.askingTitle}}</i>
+    </div>
+    <br />
+
+    <div class="list list-inset filter_item">
+      <div class="item item-divider">
+        By Basic Info
+      </div>
+
+      <!-- Gender -->
+      <a href="" class="item item-icon-right" ng-click="selectFilterOption('gender')">
+        <!-- <i class="icon ion-locked"></i> -->
+        <h2>Gender</h2>
+        <p class="italic">{{checkedItemStrGender}}</p>
+      </a>
+      <div ng-if="selectedFilter == 'gender'" style="padding: 10px;">
+        <div class="button-bar">
+          <a ng-class="{'activatedBtn': filteringObj.gender.male.unlocked}" class="button button-outline button-dark item item-icon-bottom" ng-click="itemSelectGender('male')">
+            <p>Male</p>
+            <i class="">30</i>
+          </a>
+          <a ng-class="{'activatedBtn': filteringObj.gender.female.unlocked}" class="button button-outline button-dark item item-icon-bottom" ng-click="itemSelectGender('female')">
+            <p>Female</p>
+            <i class="">40</i>
+          </a>
+          <a ng-class="{'activatedBtn': filteringObj.gender.other.unlocked}" class="button button-outline button-dark item item-icon-bottom" ng-click="itemSelectGender('other')" ng-disabled="true">
+            <p>Other</p>
+            <i class="">(not enought)</i>
+          </a>
+        </div>
+      </div>
+
+      <!-- Age  -->
+      <a href="" class="item item-icon-right" ng-click="selectFilterOption('age')">
+        <i ng-class="{'ion-locked': !filteringObj.age.all.unlocked, 'ion-checkmark': filteringObj.age.all.unlocked, 'no_mark': allAgeFilter}" class="icon"></i>
+        <h2>Age</h2>
+        <p class="italic">{{checkedItemStrAge}}</p>
+      </a>
+      <div ng-if="selectedFilter == 'age'" style="padding: 10px;">
+        <div class="button-bar">
+          <a class="button button-outline button-dark item item-icon-bottom" ng-click="itemSelectAge('under18')" ng-disabled="filteringObj.age.all.unlocked">
+            <p>Under 18</p>
+            <i ng-if="!filteringObj.age.all.unlocked" class="icon ion-locked"></i>
+            <i ng-if="filteringObj.age.all.unlocked" class="">(Not enough)</i>
+          </a>
+          <a ng-class="{'activatedBtn': filteringObj.age.to25.unlocked}" class="button button-outline button-dark item item-icon-bottom" ng-click="itemSelectAge('to25')">
+            <p>18-25</p>
+            <i ng-if="!filteringObj.age.all.unlocked" class="icon ion-locked"></i>
+            <i ng-if="filteringObj.age.all.unlocked" class="">40</i>
+          </a>
+          <a ng-class="{'activatedBtn': filteringObj.age.to35.unlocked}" class="button button-outline button-dark item item-icon-bottom" ng-click="itemSelectAge('to35')">
+            <p>26-35</p>
+            <i ng-if="!filteringObj.age.all.unlocked" class="icon ion-locked"></i>
+            <i ng-if="filteringObj.age.all.unlocked" class="">25</i>
+          </a>
+        </div>
+        <div style="padding:2px;"></div>
+        <div class="button-bar">
+          <a ng-class="{'activatedBtn': filteringObj.age.to45.unlocked}" class="button button-outline button-dark item item-icon-bottom" ng-click="itemSelectAge('to45')">
+            <p>36-45</p>
+            <i ng-if="!filteringObj.age.all.unlocked" class="icon ion-locked"></i>
+            <i ng-if="filteringObj.age.all.unlocked" class="">30</i>
+          </a>
+          <a ng-class="{'activatedBtn': filteringObj.age.to55.unlocked}" class="button button-outline button-dark item item-icon-bottom" ng-click="itemSelectAge('to55')">
+            <p>46-55</p>
+            <i ng-if="!filteringObj.age.all.unlocked" class="icon ion-locked"></i>
+            <i ng-if="filteringObj.age.all.unlocked" class="">20</i>
+          </a>
+          <a ng-class="{'activatedBtn': filteringObj.age.over56.unlocked}" class="button button-outline button-dark item item-icon-bottom" ng-click="itemSelectAge('over56')">
+            <p>Over 56</p>
+            <i ng-if="!filteringObj.age.all.unlocked" class="icon ion-locked"></i>
+            <i ng-if="filteringObj.age.all.unlocked" class="">10</i>
+          </a>
+        </div>
+      </div>
+
+      <!-- Ethnicities -->
+      <a href="" class="item item-icon-right" ng-click="selectFilterOption('ethnicities')">
+        <i ng-class="{'ion-locked': !filteringObj.ethnicities.all.unlocked, 'ion-checkmark': filteringObj.ethnicities.all.unlocked, 'no_mark': allEthnicitiesFilter}" class="icon"></i>
+        <h2>Ethnicities</h2>
+        <p class="italic">{{checkedItemStrEthnicities}}</p>
+      </a>
+      <div ng-if="selectedFilter == 'ethnicities'" style="padding: 10px;">
+        <div class="button-bar">
+          <a ng-class="{'activatedBtn': filteringObj.ethnicities.asian.unlocked}" class="button button-outline button-dark item item-icon-bottom" ng-click="itemSelectEthnicities('asian')">
+            <p>{{filteringObj.ethnicities.asian.str}}</p>
+            <i ng-if="!filteringObj.ethnicities.all.unlocked" class="icon ion-locked"></i>
+            <i ng-if="filteringObj.ethnicities.all.unlocked" class="">20</i>
+          </a>
+          <a ng-class="{'activatedBtn': filteringObj.ethnicities.black.unlocked}" class="button button-outline button-dark item item-icon-bottom" ng-click="itemSelectEthnicities('black')">
+            <p>{{filteringObj.ethnicities.black.str}}</p>
+            <i ng-if="!filteringObj.ethnicities.all.unlocked" class="icon ion-locked"></i>
+            <i ng-if="filteringObj.ethnicities.all.unlocked" class="">20</i>
+          </a>
+          <a ng-class="{'activatedBtn': filteringObj.ethnicities.lat_his.unlocked}" class="button button-outline button-dark item item-icon-bottom" ng-click="itemSelectEthnicities('lat_his')">
+            <p>{{filteringObj.ethnicities.lat_his.str}}</p>
+            <i ng-if="!filteringObj.ethnicities.all.unlocked" class="icon ion-locked"></i>
+            <i ng-if="filteringObj.ethnicities.all.unlocked" class="">10</i>
+          </a>
+        </div>
+        <div style="padding:2px;"></div>
+        <div class="button-bar">
+          <a class="button button-outline button-dark item item-icon-bottom" ng-click="itemSelectEthnicities('mid')" ng-disabled="filteringObj.ethnicities.all.unlocked">
+            <p>{{filteringObj.ethnicities.mid.str}}</p>
+            <i ng-if="!filteringObj.ethnicities.all.unlocked" class="icon ion-locked"></i>
+            <i ng-if="filteringObj.ethnicities.all.unlocked" class="">(Not enough)</i>
+          </a>
+          <a class="button button-outline button-dark item item-icon-bottom" ng-click="itemSelectEthnicities('native')" ng-disabled="filteringObj.ethnicities.all.unlocked">
+            <p>{{filteringObj.ethnicities.native.str}}</p>
+            <i ng-if="!filteringObj.ethnicities.all.unlocked" class="icon ion-locked"></i>
+            <i ng-if="filteringObj.ethnicities.all.unlocked" class="">(Not enough)</i>
+          </a>
+          <a class="button button-outline button-dark item item-icon-bottom" ng-click="itemSelectEthnicities('pacific')" ng-disabled="filteringObj.ethnicities.all.unlocked">
+            <p>{{filteringObj.ethnicities.pacific.str}}</p>
+            <i ng-if="!filteringObj.ethnicities.all.unlocked" class="icon ion-locked"></i>
+            <i ng-if="filteringObj.ethnicities.all.unlocked" class="">(Not enough)</i>
+          </a>
+        </div>
+        <div style="padding:2px;"></div>
+        <div class="button-bar">
+          <a ng-class="{'activatedBtn': filteringObj.ethnicities.white.unlocked}" class="button button-outline button-dark item item-icon-bottom" ng-click="itemSelectEthnicities('white')">
+            <p>{{filteringObj.ethnicities.white.str}}</p>
+            <i ng-if="!filteringObj.ethnicities.all.unlocked" class="icon ion-locked"></i>
+            <i ng-if="filteringObj.ethnicities.all.unlocked" class="">10</i>
+          </a>
+          <a class="button button-outline button-dark item item-icon-bottom" ng-click="itemSelectEthnicities('other')" ng-disabled="filteringObj.ethnicities.all.unlocked">
+            <p>{{filteringObj.ethnicities.other.str}}</p>
+            <i ng-if="!filteringObj.ethnicities.all.unlocked" class="icon ion-locked"></i>
+            <i ng-if="filteringObj.ethnicities.all.unlocked" class="">(Not enough)</i>
+          </a>
+          <div class="empty-cell"></div>
+        </div>
+      </div>
+
+      <div class="item item-divider">
+        By Location
+      </div>
+
+      <!-- Country -->
+      <a href="" class="item item-icon-right" ng-click="selectFilterOption('country')">
+        <!--  <i class="icon ion-locked"></i> -->
+        <h2>Country</h2>
+        <p class="italic">{{checkedItemStrCountry}}</p>
+      </a>
+      <div ng-if="selectedFilter == 'country'" style="padding: 10px;">
+        <div class="button-bar">
+          <a ng-class="{'activatedBtn': filteringObj.country.USA.unlocked}" class="button button-outline button-dark item item-icon-bottom" ng-click="itemSelectCountry('USA')">
+            <p>USA</p>
+            <i class="">75</i>
+          </a>
+          <a ng-class="{'activatedBtn': filteringObj.country.Canada.unlocked}" class="button button-outline button-dark item item-icon-bottom" ng-click="itemSelectCountry('Canada')">
+            <p>Canada</p>
+            <i class="">25</i>
+          </a>
+          <div class="empty-cell"></div>
+        </div>
+        <div style="height: 3px;">&nbsp;</div>
+        <select ng-disabled="true" style="width: 100%;">
+          <option selected>---More countries (not enough)---</option>
+        </select>
+      </div>
+
+      <!-- Region -->
+      <a href="" class="item item-icon-right" ng-click="selectFilterOption('region')">
+        <i ng-class="{'ion-locked': !filteringObj.region.all.unlocked, 'ion-checkmark': filteringObj.region.all.unlocked, 'no_mark': allRegionFilter}" class="icon"></i>
+        <h2>Region</h2>
+        <p class="italic">all</p>
+      </a>
+      <div ng-if="selectedFilter == 'region'" style="padding: 10px;">
+        Region
+      </div>
+
+      <!-- State/Province -->
+      <a href="" class="item item-icon-right" ng-click="selectFilterOption('stateProvince')">
+        <i class="icon ion-locked"></i>
+        <h2>State/Province</h2>
+        <p class="italic">all US states and Canadian provinces</p>
+      </a>
+      <div ng-if="selectedFilter == 'stateProvince'" style="padding: 10px;">
+        State/Province
+      </div>
+
+      <!-- City -->
+      <a href="" class="item item-icon-right" ng-click="selectFilterOption('city')">
+        <i class="icon ion-locked"></i>
+        <h2>City</h2>
+        <p class="italic">all cities</p>
+      </a>
+      <div ng-if="selectedFilter == 'city'" style="padding: 10px;">
+        City
+      </div>
+
+      <div class="item item-divider">
+        By Knowledge
+      </div>
+
+      <!-- Expertise -->
+      <a href="" class="item item-icon-right" ng-click="selectFilterOption('expertiseCat')">
+        <h2>Expertise in {{expertiseData.category}}</h2>
+        <p class="italic">{{expertiseData.checkedItemStrExpertise}}</p>
+      </a>
+      <div ng-if="selectedFilter == 'expertiseCat'" style="padding: 10px;">
+        <ion-radio ng-model="expertiseData.expertise" ng-value="'all'" ng-click="clickExpertiseRadio()">All respondents (100)</ion-radio>
+        <ion-radio ng-model="expertiseData.expertise" ng-value="'more'" ng-click="clickExpertiseRadio()">More specific audience</ion-radio>
+        <div ng-if="expertiseData.expertise == 'more'">
+          <div>
+            <ion-checkbox ng-model="expertiseData.sub_aud_1" class="subCheck start-selection" ng-click="expertiseCheckClick(1)">
+              {{filteringObj.expertiseCat.sub_aud_1.star}}<br>
+              {{filteringObj.expertiseCat.sub_aud_1.str}}({{filteringObj.expertiseCat.sub_aud_1.num}})
+            </ion-checkbox>
+            <ion-checkbox ng-model="expertiseData.sub_aud_2" class="subCheck start-selection" ng-click="expertiseCheckClick(2)">
+              {{filteringObj.expertiseCat.sub_aud_2.star}}<br>
+              {{filteringObj.expertiseCat.sub_aud_2.str}}({{filteringObj.expertiseCat.sub_aud_2.num}})
+            </ion-checkbox>
+            <ion-checkbox ng-model="expertiseData.sub_aud_3" class="subCheck start-selection" ng-click="expertiseCheckClick(3)">
+              {{filteringObj.expertiseCat.sub_aud_3.star}}<br>
+              {{filteringObj.expertiseCat.sub_aud_3.str}}({{filteringObj.expertiseCat.sub_aud_3.num}})
+            </ion-checkbox>
+            <ion-checkbox ng-model="expertiseData.sub_aud_4" class="subCheck start-selection" ng-disabled="true" ng-click="expertiseCheckClick(4)">
+              {{filteringObj.expertiseCat.sub_aud_4.star}}<br>
+              {{filteringObj.expertiseCat.sub_aud_4.str}}(Not enough)
+            </ion-checkbox>
+            <ion-checkbox ng-model="expertiseData.sub_aud_5" class="subCheck start-selection" ng-click="expertiseCheckClick(5)">
+              {{filteringObj.expertiseCat.sub_aud_5.star}}<br>
+              {{filteringObj.expertiseCat.sub_aud_5.str}}({{filteringObj.expertiseCat.sub_aud_5.num}})
+            </ion-checkbox>
+            <ion-checkbox ng-model="expertiseData.sub_aud_6" class="subCheck start-selection" ng-disabled="true" ng-click="expertiseCheckClick(6)">
+              {{filteringObj.expertiseCat.sub_aud_6.star}}<br>
+              {{filteringObj.expertiseCat.sub_aud_6.str}}(Not enough)
+            </ion-checkbox>
+          </div>
+        </div>
+      </div>
+
+      <!-- Occupation -->
+      <a href="" class="item item-icon-right" ng-click="selectFilterOption('occupation')">
+        <i ng-class="{'ion-locked': !filteringObj.occupation.unlocked}" class="icon"></i>
+        <h2>Occupation</h2>
+        <p class="italic" ng-if="filteringObj.occupation.str">{{filteringObj.occupation.str}}</p>
+        <p class="italic" ng-if="!filteringObj.occupation.str">all occupations</p>
+      </a>
+      <div ng-if="selectedFilter == 'occupation'" style="padding: 10px;">
+        <label class="item item-input">
+          <input type="text" placeholder="Enter occupations to filter" ng-model="filteringObj.occupation.str" ng-click="clickOccupationbox()"><i ng-class="{'ion-locked': !filteringObj.occupation.unlocked}"></i>
+        </label>
+      </div>
+
+      <div class="item item-divider">
+        By Lives
+      </div>
+
+      <!-- Relationship status -->
+      <a href="" class="item item-icon-right" ng-click="selectFilterOption('relationshipStatus')">
+        <i ng-class="{'ion-locked': !filteringObj.relationshipStatus.all.unlocked, 'ion-checkmark': filteringObj.relationshipStatus.all.unlocked, 'no_mark': allRelationshipFilter}" class="icon"></i>
+        <h2>Relationship status</h2>
+        <p class="italic">{{checkedItemStrRelationship}}</p>
+      </a>
+      <div ng-if="selectedFilter == 'relationshipStatus'" style="padding: 10px;">
+        <div class="button-bar">
+          <a ng-class="{'activatedBtn': filteringObj.relationshipStatus.single.unlocked}" class="button button-outline button-dark item item-icon-bottom" ng-click="itemSelectRelationship('single')">
+            <p>{{filteringObj.relationshipStatus.single.str}}</p>
+            <i ng-if="!filteringObj.relationshipStatus.all.unlocked" class="icon ion-locked"></i>
+            <i ng-if="filteringObj.relationshipStatus.all.unlocked" class="">20</i>
+          </a>
+          <a ng-class="{'activatedBtn': filteringObj.relationshipStatus.in.unlocked}" class="button button-outline button-dark item item-icon-bottom" ng-click="itemSelectRelationship('in')">
+            <p>{{filteringObj.relationshipStatus.in.str}}</p>
+            <i ng-if="!filteringObj.relationshipStatus.all.unlocked" class="icon ion-locked"></i>
+            <i ng-if="filteringObj.relationshipStatus.all.unlocked" class="">20</i>
+          </a>
+          <a ng-class="{'activatedBtn': filteringObj.relationshipStatus.married.unlocked}" class="button button-outline button-dark item item-icon-bottom" ng-click="itemSelectRelationship('married')">
+            <p>{{filteringObj.relationshipStatus.married.str}}</p>
+            <i ng-if="!filteringObj.relationshipStatus.all.unlocked" class="icon ion-locked"></i>
+            <i ng-if="filteringObj.relationshipStatus.all.unlocked" class="">10</i>
+          </a>
+        </div>
+        <div style="padding:2px;"></div>
+        <div class="button-bar">
+          <a class="button button-outline button-dark item item-icon-bottom" ng-click="itemSelectRelationship('widowed')" ng-disabled="filteringObj.relationshipStatus.all.unlocked">
+              <p>{{filteringObj.relationshipStatus.widowed.str}}</p>
+              <i ng-if="!filteringObj.relationshipStatus.all.unlocked" class="icon ion-locked"></i>
+              <i ng-if="filteringObj.relationshipStatus.all.unlocked" class="">(Not enough)</i>
+          </a>
+          <a class="button button-outline button-dark item item-icon-bottom" ng-click="itemSelectRelationship('divorced')" ng-disabled="filteringObj.relationshipStatus.all.unlocked">
+            <p>{{filteringObj.relationshipStatus.divorced.str}}</p>
+            <i ng-if="!filteringObj.relationshipStatus.all.unlocked" class="icon ion-locked"></i>
+            <i ng-if="filteringObj.relationshipStatus.all.unlocked" class="">(Not enough)</i>
+          </a>
+          <a class="button button-outline button-dark item item-icon-bottom" ng-click="itemSelectRelationship('domestic_partner')" ng-disabled="filteringObj.relationshipStatus.all.unlocked">
+            <p>{{filteringObj.relationshipStatus.domestic_partner.str}}</p>
+            <i ng-if="!filteringObj.relationshipStatus.all.unlocked" class="icon ion-locked"></i>
+            <i ng-if="filteringObj.relationshipStatus.all.unlocked" class="">(Not enough)</i>
+          </a>
+        </div>
+      </div>
+
+      <!-- Has children -->
+      <a href="" class="item item-icon-right" ng-click="selectFilterOption('children')">
+        <i ng-class="{'ion-locked': !filteringObj.children.all.unlocked, 'ion-checkmark': filteringObj.children.all.unlocked, 'no_mark': allChildrenFilter}" class="icon"></i>
+        <h2>Has children</h2>
+        <p class="italic">{{checkedItemStrChildren}}</p>
+      </a>
+      <div ng-if="selectedFilter == 'children'" style="padding: 10px;">
+        <div class="button-bar">
+          <a ng-class="{'activatedBtn': filteringObj.children.yes.unlocked}" class="button button-outline button-dark item item-icon-bottom" ng-click="itemSelectChildren('yes')">
+            <p>{{filteringObj.children.yes.str}}</p>
+            <i ng-if="!filteringObj.children.all.unlocked" class="icon ion-locked"></i>
+          </a>
+          <a ng-class="{'activatedBtn': filteringObj.children.no.unlocked}" class="button button-outline button-dark item item-icon-bottom" ng-click="itemSelectChildren('no')">
+            <p>{{filteringObj.children.no.str}}</p>
+            <i ng-if="!filteringObj.children.all.unlocked" class="icon ion-locked"></i>
+          </a>
+          <div class="empty-cell"></div>
+        </div>
+      </div>
+
+      <!-- Household formation -->
+      <a href="" class="item item-icon-right" ng-click="selectFilterOption('household')">
+        <i ng-class="{'ion-locked': !filteringObj.household.all.unlocked, 'ion-checkmark': filteringObj.household.all.unlocked, 'no_mark': allHouseholdFilter}" class="icon"></i>
+        <h2>Household formation</h2>
+        <p class="italic">{{checkedItemStrHousehold}}</p>
+      </a>
+      <div ng-if="selectedFilter == 'household'" style="padding: 10px;">
+        <div class="button-bar">
+          <a ng-class="{'activatedBtn': filteringObj.household.alone.unlocked}" class="button button-outline button-dark item item-icon-bottom" ng-click="itemSelectHousehold('alone')">
+            <p>{{filteringObj.household.alone.str}}</p>
+            <i ng-if="!filteringObj.household.all.unlocked" class="icon ion-locked"></i>
+            <i ng-if="filteringObj.household.all.unlocked" class="">20</i>
+          </a>
+          <a ng-class="{'activatedBtn': filteringObj.household.withparent.unlocked}" class="button button-outline button-dark item item-icon-bottom" ng-click="itemSelectHousehold('withparent')">
+            <p>{{filteringObj.household.withparent.str}}</p>
+            <i ng-if="!filteringObj.household.all.unlocked" class="icon ion-locked"></i>
+            <i ng-if="filteringObj.household.all.unlocked" class="">20</i>
+          </a>
+          <a ng-class="{'activatedBtn': filteringObj.household.withroommate.unlocked}" class="button button-outline button-dark item item-icon-bottom" ng-click="itemSelectHousehold('withroommate')">
+            <p>{{filteringObj.household.withroommate.str}}</p>
+            <i ng-if="!filteringObj.household.all.unlocked" class="icon ion-locked"></i>
+            <i ng-if="filteringObj.household.all.unlocked" class="">10</i>
+          </a>
+        </div>
+        <div style="padding:2px;"></div>
+        <div class="button-bar">
+          <a ng-class="{'activatedBtn': filteringObj.household.withpartner_spouse_nochildren.unlocked}" class="button button-outline button-dark item item-icon-bottom" ng-click="itemSelectHousehold('withpartner_spouse_nochildren')">
+            <p>{{filteringObj.household.withpartner_spouse_nochildren.str}}</p>
+            <i ng-if="!filteringObj.household.all.unlocked" class="icon ion-locked"></i>
+            <i ng-if="filteringObj.household.all.unlocked" class="">20</i>
+          </a>
+          <a ng-class="{'activatedBtn': filteringObj.household.withchildren.unlocked}" class="button button-outline button-dark item item-icon-bottom" ng-click="itemSelectHousehold('withchildren')">
+            <p>{{filteringObj.household.withchildren.str}}</p>
+            <i ng-if="!filteringObj.household.all.unlocked" class="icon ion-locked"></i>
+            <i ng-if="filteringObj.household.all.unlocked" class="">20</i>
+          </a>
+          <a ng-class="{'activatedBtn': filteringObj.household.multigenerational.unlocked}" class="button button-outline button-dark item item-icon-bottom" ng-click="itemSelectHousehold('multigenerational')">
+            <p>{{filteringObj.household.multigenerational.str}}</p>
+            <i ng-if="!filteringObj.household.all.unlocked" class="icon ion-locked"></i>
+            <i ng-if="filteringObj.household.all.unlocked" class="">20</i>
+          </a>
+        </div>
+      </div>
+
+      <div class="item item-divider">
+        By Values
+      </div>
+
+      <!-- Cultural origin -->
+      <a href="" class="item item-icon-right" ng-click="selectFilterOption('culturalOrigin')">
+        <i ng-class="{'ion-locked': !filteringObj.culturalOrigin.unlocked}" class="icon"></i>
+        <h2>Cultural origin</h2>
+        <p class="italic" ng-if="filteringObj.culturalOrigin.str">{{filteringObj.culturalOrigin.str}}</p>
+        <p class="italic" ng-if="!filteringObj.culturalOrigin.str">all countries</p>
+      </a>
+      <div ng-if="selectedFilter == 'culturalOrigin'" style="padding: 10px;">
+        <label class="item item-input">
+          <input type="text" placeholder="Country you most identify with on culture" ng-model="filteringObj.culturalOrigin.str" ng-click="clickCulturalOriginbox()"><i ng-class="{'ion-locked': !filteringObj.culturalOrigin.unlocked}"></i>
+        </label>
+      </div>
+
+      <!-- Religion -->
+      <a href="" class="item item-icon-right" ng-click="selectFilterOption('religion')">
+        <i ng-class="{'ion-locked': !filteringObj.religion.all.unlocked, 'ion-checkmark': filteringObj.religion.all.unlocked, 'no_mark': allReligionFilter}" class="icon"></i>
+        <h2>Religion</h2>
+        <p class="italic">{{checkedItemStrReligion}}</p>
+      </a>
+      <div ng-if="selectedFilter == 'religion'" style="padding: 10px;">
+        <div class="button-bar">
+          <a ng-class="{'activatedBtn': filteringObj.religion.protestant.unlocked}" class="button button-outline button-dark item item-icon-bottom" ng-click="itemSelectReligion('protestant')">
+            <p>{{filteringObj.religion.protestant.str}}</p>
+            <i ng-if="!filteringObj.religion.all.unlocked" class="icon ion-locked"></i>
+            <i ng-if="filteringObj.religion.all.unlocked" class="">20</i>
+          </a>
+          <a ng-class="{'activatedBtn': filteringObj.religion.roman.unlocked}" class="button button-outline button-dark item item-icon-bottom" ng-click="itemSelectReligion('roman')">
+            <p>{{filteringObj.religion.roman.str}}</p>
+            <i ng-if="!filteringObj.religion.all.unlocked" class="icon ion-locked"></i>
+            <i ng-if="filteringObj.religion.all.unlocked" class="">20</i>
+          </a>
+          <a class="button button-outline button-dark item item-icon-bottom" ng-click="itemSelectReligion('mormon')" ng-disabled="filteringObj.religion.all.unlocked">
+            <p>{{filteringObj.religion.mormon.str}}</p>
+            <i ng-if="!filteringObj.religion.all.unlocked" class="icon ion-locked"></i>
+            <i ng-if="filteringObj.religion.all.unlocked" class="">(Not enough)</i>
+          </a>
+        </div>
+        <div style="padding:2px;"></div>
+        <div class="button-bar">
+          <a class="button button-outline button-dark item item-icon-bottom" ng-click="itemSelectReligion('christian')" ng-disabled="filteringObj.religion.all.unlocked">
+            <p>{{filteringObj.religion.christian.str}}</p>
+            <i ng-if="!filteringObj.religion.all.unlocked" class="icon ion-locked"></i>
+            <i ng-if="filteringObj.religion.all.unlocked" class="">(Not enough)</i>
+          </a>
+          <a class="button button-outline button-dark item item-icon-bottom" ng-click="itemSelectReligion('jewish')" ng-disabled="filteringObj.religion.all.unlocked">
+            <p>{{filteringObj.religion.jewish.str}}</p>
+            <i ng-if="!filteringObj.religion.all.unlocked" class="icon ion-locked"></i>
+            <i ng-if="filteringObj.religion.all.unlocked" class="">(Not enough)</i>
+          </a>
+          <a ng-class="{'activatedBtn': filteringObj.religion.muslim.unlocked}" class="button button-outline button-dark item item-icon-bottom" ng-click="itemSelectReligion('muslim')">
+            <p>{{filteringObj.religion.muslim.str}}</p>
+            <i ng-if="!filteringObj.religion.all.unlocked" class="icon ion-locked"></i>
+            <i ng-if="filteringObj.religion.all.unlocked" class="">20</i>
+          </a>
+        </div>
+        <div style="padding:2px;"></div>
+        <div class="button-bar">
+          <a ng-class="{'activatedBtn': filteringObj.religion.hindu.unlocked}" class="button button-outline button-dark item item-icon-bottom" ng-click="itemSelectReligion('hindu')">
+            <p>{{filteringObj.religion.hindu.str}}</p>
+            <i ng-if="!filteringObj.religion.all.unlocked" class="icon ion-locked"></i>
+            <i ng-if="filteringObj.religion.all.unlocked" class="">20</i>
+          </a>
+          <a class="button button-outline button-dark item item-icon-bottom" ng-click="itemSelectReligion('sikh')" ng-disabled="filteringObj.religion.all.unlocked">
+            <p>{{filteringObj.religion.sikh.str}}</p>
+            <i ng-if="!filteringObj.religion.all.unlocked" class="icon ion-locked"></i>
+            <i ng-if="filteringObj.religion.all.unlocked" class="">(Not enough)</i>
+          </a>
+          <a class="button button-outline button-dark item item-icon-bottom" ng-click="itemSelectReligion('buddhist')" ng-disabled="filteringObj.religion.all.unlocked">
+            <p>{{filteringObj.religion.buddhist.str}}</p>
+            <i ng-if="!filteringObj.religion.all.unlocked" class="icon ion-locked"></i>
+            <i ng-if="filteringObj.religion.all.unlocked" class="">(Not enough)</i>
+          </a>
+        </div>
+        <div style="padding:2px;"></div>
+        <div class="button-bar">
+          <a class="button button-outline button-dark item item-icon-bottom" ng-click="itemSelectReligion('taoist')" ng-disabled="filteringObj.religion.all.unlocked">
+            <p>{{filteringObj.religion.taoist.str}}</p>
+            <i ng-if="!filteringObj.religion.all.unlocked" class="icon ion-locked"></i>
+            <i ng-if="filteringObj.religion.all.unlocked" class="">(Not enough)</i>
+          </a>
+          <a class="button button-outline button-dark item item-icon-bottom" ng-click="itemSelectReligion('otherreligion')" ng-disabled="filteringObj.religion.all.unlocked">
+            <p>{{filteringObj.religion.otherreligion.str}}</p>
+            <i ng-if="!filteringObj.religion.all.unlocked" class="icon ion-locked"></i>
+            <i ng-if="filteringObj.religion.all.unlocked" class="">(Not enough)</i>
+          </a>
+          <a class="button button-outline button-dark item item-icon-bottom" ng-click="itemSelectReligion('atheist')" ng-disabled="filteringObj.religion.all.unlocked">
+            <p>{{filteringObj.religion.atheist.str}}</p>
+            <i ng-if="!filteringObj.religion.all.unlocked" class="icon ion-locked"></i>
+            <i ng-if="filteringObj.religion.all.unlocked" class="">(Not enough)</i>
+          </a>
+        </div>
+        <div style="padding:2px;"></div>
+        <div class="button-bar">
+          <a class="button button-outline button-dark item item-icon-bottom" ng-click="itemSelectReligion('agnostic')" ng-disabled="filteringObj.religion.all.unlocked">
+            <p>{{filteringObj.religion.agnostic.str}}</p>
+            <i ng-if="!filteringObj.religion.all.unlocked" class="icon ion-locked"></i>
+            <i ng-if="filteringObj.religion.all.unlocked" class="">(Not enough)</i>
+          </a>
+          <a ng-class="{'activatedBtn': filteringObj.religion.othernonreligious.unlocked}" class="button button-outline button-dark item item-icon-bottom" ng-click="itemSelectReligion('othernonreligious')">
+            <p>{{filteringObj.religion.othernonreligious.str}}</p>
+            <i ng-if="!filteringObj.religion.all.unlocked" class="icon ion-locked"></i>
+            <i ng-if="filteringObj.religion.all.unlocked" class="">20</i>
+          </a>
+          <div class="empty-cell"></div>
+        </div>
+      </div>
+
+      <!-- Political views -->
+      <a href="" class="item item-icon-right" ng-click="selectFilterOption('political')">
+        <i ng-class="{'ion-locked': !filteringObj.political.all.unlocked, 'ion-checkmark': filteringObj.political.all.unlocked, 'no_mark': allPoliticalFilter}" class="icon"></i>
+        <h2>Political views</h2>
+        <p class="italic">{{checkedItemStrPolitical}}</p>
+      </a>
+      <div ng-if="selectedFilter == 'political'" style="padding: 10px;">
+        <div class="button-bar">
+          <a ng-class="{'activatedBtn': filteringObj.political.veryliberal.unlocked}" class="button button-outline button-dark item item-icon-bottom" ng-click="itemSelectPolitical('veryliberal')">
+            <p>{{filteringObj.political.veryliberal.str}}</p>
+            <i ng-if="!filteringObj.political.all.unlocked" class="icon ion-locked"></i>
+            <i ng-if="filteringObj.political.all.unlocked" class="">20</i>
+          </a>
+          <a ng-class="{'activatedBtn': filteringObj.political.somewhatliberal.unlocked}" class="button button-outline button-dark item item-icon-bottom" ng-click="itemSelectPolitical('somewhatliberal')">
+            <p>{{filteringObj.political.somewhatliberal.str}}</p>
+            <i ng-if="!filteringObj.political.all.unlocked" class="icon ion-locked"></i>
+            <i ng-if="filteringObj.political.all.unlocked" class="">20</i>
+          </a>
+          <a ng-class="{'activatedBtn': filteringObj.political.mederate.unlocked}" class="button button-outline button-dark item item-icon-bottom" ng-click="itemSelectPolitical('mederate')">
+            <p>{{filteringObj.political.mederate.str}}</p>
+            <i ng-if="!filteringObj.political.all.unlocked" class="icon ion-locked"></i>
+            <i ng-if="filteringObj.political.all.unlocked" class="">20</i>
+          </a>
+        </div>
+        <div style='padding:2px;'></div>
+        <div class="button-bar">
+          <a ng-class="{'activatedBtn': filteringObj.political.somewhatconservative.unlocked}" class="button button-outline button-dark item item-icon-bottom" ng-click="itemSelectPolitical('somewhatconservative')">
+            <p>{{filteringObj.political.somewhatconservative.str}}</p>
+            <i ng-if="!filteringObj.political.all.unlocked" class="icon ion-locked"></i>
+            <i ng-if="filteringObj.political.all.unlocked" class="">20</i>
+          </a>
+          <a class="button button-outline button-dark item item-icon-bottom" ng-click="itemSelectPolitical('veryconservative')" ng-disabled="filteringObj.political.all.unlocked">
+            <p>{{filteringObj.political.veryconservative.str}}</p>
+            <i ng-if="!filteringObj.political.all.unlocked" class="icon ion-locked"></i>
+            <i ng-if="filteringObj.political.all.unlocked" class="">(Not enough)</i>
+          </a>
+          <a class="button button-outline button-dark item item-icon-bottom" ng-click="itemSelectPolitical('libertarian')" ng-disabled="filteringObj.political.all.unlocked">
+            <p>{{filteringObj.political.libertarian.str}}</p>
+            <i ng-if="!filteringObj.political.all.unlocked" class="icon ion-locked"></i>
+            <i ng-if="filteringObj.political.all.unlocked" class="">(Not enough)</i>
+          </a>
+        </div>
+        <div style='padding:2px;'></div>
+        <div class="button-bar">
+          <a class="button button-outline button-dark item item-icon-bottom" ng-click="itemSelectPolitical('socialist')" ng-disabled="filteringObj.political.all.unlocked">
+            <p>{{filteringObj.political.socialist.str}}</p>
+            <i ng-if="!filteringObj.political.all.unlocked" class="icon ion-locked"></i>
+            <i ng-if="filteringObj.political.all.unlocked" class="">(Not enough)</i>
+          </a>
+          <a class="button button-outline button-dark item item-icon-bottom" ng-click="itemSelectPolitical('green')" ng-disabled="filteringObj.political.all.unlocked">
+            <p>{{filteringObj.political.green.str}}</p>
+            <i ng-if="!filteringObj.political.all.unlocked" class="icon ion-locked"></i>
+            <i ng-if="filteringObj.political.all.unlocked" class="">(Not enough)</i>
+          </a>
+          <a class="button button-outline button-dark item item-icon-bottom" ng-click="itemSelectPolitical('independent')" ng-disabled="filteringObj.political.all.unlocked">
+            <p>{{filteringObj.political.independent.str}}</p>
+            <i ng-if="!filteringObj.political.all.unlocked" class="icon ion-locked"></i>
+            <i ng-if="filteringObj.political.all.unlocked" class="">(Not enough)</i>
+          </a>
+        </div>
+        <div style='padding:2px;'></div>
+        <div class="button-bar">
+          <a class="button button-outline button-dark item item-icon-bottom" ng-click="itemSelectPolitical('other')" ng-disabled="filteringObj.political.all.unlocked">
+            <p>{{filteringObj.political.other.str}}</p>
+            <i ng-if="!filteringObj.political.all.unlocked" class="icon ion-locked"></i>
+            <i ng-if="filteringObj.political.all.unlocked" class="">(Not enough)</i>
+          </a>
+          <div class="empty-cell"></div>
+          <div class="empty-cell" style="border:none"></div>
+        </div>
+      </div>
+
+
+
+      <div class="item item-divider">
+
+      </div>
+
+      <!-- Votes from unregistered users -->
+      <a href="" class="item item-icon-right" ng-click="selectFilterOption('votesFromUnregistered')">
+        <h2>Votes from unregistered users</h2>
+        <p class="italic">{{changeUnregistereduserStr()}} (50 votes)</p>
+      </a>
+      <div ng-if="selectedFilter == 'votesFromUnregistered'" style="padding: 10px;">
+        <ion-checkbox ng-model="data.unregistereduser" class="subCheck" ng-click="unregistereduserCheck()">
+          Show votes from unregistered users (50)
+        </ion-checkbox>
+      </div>
+
+      <button href="#" class="button button-block button-positive" ng-click="saveAndGoBack()">Apply</button>
+    </div>
+  </ion-content>
+</ion-view>
+
+
+
+
+
+
+

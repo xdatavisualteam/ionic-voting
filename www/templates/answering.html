@@ -1,0 +1,356 @@
+<ion-view title="Social Polling" ng-controller="AnswerCtrl">
+  <ion-content delegate-handle="availableTicketScroll" class="padding" style="padding-bottom:0px;">
+
+    <div ng-if="!closeBtnClickedGreatQues&&isAnswerQuestion" class="bg-box" style="margin-bottom:20px;">
+      <div class="row">
+        <div class="col col-20"><img ng-src="img/map.svg" style="height: 54px; width: 54px;" /></div>
+        <div class="col col-80"><h1>Here's a great question from a new member of Ask the World.</h1></div>
+      </div>
+      <div class="row">
+        <div class="col gray-info">
+          To vote on it, pick an answer and at least one reason (or create your own).
+        </div>
+      </div>
+      <div class="row">
+        <div class="col text-center"><a ng-if="!closeBtnClickedGreatQues" href="#" ng-click="closeBtnClickGreatQues()">Ok, got it.</a></div>
+      </div>
+    </div>
+
+ 
+
+  <div class="{{!isAnswerQuestion?'bg-box':''}}">
+      <div class="text-center">
+        <a href="#/question_feed_for_topic?topic={{question.category}}" class="topic topic-bg-{{question.category}} topic-text-{{question.category}}">
+          {{topicNames[question.category]}}
+        </a>
+      </div>
+      <h1 class="title-desc">{{question.q}}</h1>
+      <div class="asked-by">
+        <img ng-src="img/user.svg" /><p>
+          Asked by <a href="" ng-click="showAlert('Alert', 'Coming soon!')">{{question.asker}}</a>
+        </p>
+      </div>
+
+      <div ng-if="!isAnswerQuestion && isHomePage()" class="padding" style="padding-bottom:0px;">
+        <a href="" class="button button-block  button-positive" ng-click="answerQuestionShow();">
+          Answer This Question
+        </a>
+      </div>
+
+  <div ng-if="isAnswerQuestion || !isHomePage()">
+        <ion-list ng-if="question.type!='image'">
+          <div ng-repeat="ans in question.answers| limitTo:limitAnswers">
+            <ion-radio name="answer" ng-model="selected.answer" style="margin-top:0px" value="{{ans.id}}" ng-change="answerChanged(this)" ng-click="toggleGroup(ans, true)" ng-class="{active: isGroupShown(ans)}">{{ans.name}}</ion-radio>
+            <ion-list class="item-accordion brown-box" ng-show="isGroupShown(ans)" ng-cloak>
+              <div class="item gray-text item-with-details">
+                Give your reasons:
+              </div>
+              <div ng-repeat="r in ans.reasons| limitTo:limitReasons">
+                <div class="item item-with-details">
+                  <div style="white-space:normal">
+                    <ion-checkbox class="slim-checkbox" ng-model="selected.reason[ans.id + '-' + r.id]" ng-checked="selected.reason[ans.id + '-' + r.id]">{{r.name}}</ion-checkbox>
+                    <button class="button-link icon {{selected.reasonExpand[ans.id+'-'+r.id]?'button-expanded ion-arrow-up-b':'ion-arrow-down-b'}}" ng-click="selected.reasonExpand['{{ans.id}}-{{r.id}}'] = !selected.reasonExpand['{{ans.id}}-{{r.id}}']; reasonExpandFn()"> Details</button>
+                  </div>
+                  <div class="details-box" ng-show="selected.reasonExpand['{{ans.id}}-{{r.id}}']" ng-cloak>
+                    <div class="item-text-wrap">
+                      {{r.details}}
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div>
+                <div class="item item-with-details" style="padding-top:14px;padding-bottom:14px;">
+                  <div>
+                    <ion-checkbox name="reason" class="slim-checkbox" style="padding-top: 14px;padding-bottom: 14px;margin-bottom:-8px" ng-model="selected.reason[ans.id + '-new']" ng-checked="selected.reason[ans.id + '-new']"></ion-checkbox>
+                    <input type="text" placeholder="Add another reason..." style="min-width: 60%;" class="item-input input-gray" ng-model="selected.reason[ans.id + '-new-another']" ng-focus="selected.reason[ans.id + '-new'] = true" maxlength="50" />
+                    <button class="button-link icon {{selected.reasonExpand[ans.id + '-new']?'button-expanded ion-arrow-up-b':'ion-arrow-down-b'}}" ng-click="selected.reasonExpand['{{ans.id}}-new'] = !selected.reasonExpand['{{ans.id}}-new']; reasonExpandFn()"> Details</button>
+                  </div>
+                  <div class="details-box" ng-show="selected.reasonExpand['{{ans.id}}-new']">
+                    <div class="item-text-wrap">
+                      <textarea class="item-input" placeholder="Enter details here..." style="width: 100%;background-color:#f7f3f0;" rows="3" ng-model="selected.reason[ans.id + '-new-detail']" maxlength="1000"></textarea>
+                    </div>
+                    
+                  </div>
+                  <div class="text-right gray-text" ng-show="selected.reasonExpand['{{ans.id}}-new']">{{1000 - selected.reason[ans.id + '-new-detail'].length}} left</div>
+                </div>
+              </div>
+              <div style="width:100%;align-items:center;display:inline-block;padding:8px;text-align:center" ng-show="ans.reasons.length>5">
+                <a href="" ng-click="setShowMoreReasons(ans.reasons)">{{showMoreReasonsLabel}}</a>
+              </div>
+            </ion-list>
+          </div>
+          <div class="item item-input-inset" style="margin-top:0px">
+            <label class="item-input-wrapper">
+              <input type="text" ng-model="selected.newAnswer" placeholder="Add another option..." ng-click="toggleGroup(selected, false)" style="width:100%" maxlength="50">
+            </label>
+            <ion-radio name="answer" ng-model="selected.answer" value="new" ng-change="answerChanged(this)" ng-click="toggleGroup(selected, true)" ng-class="{active: isGroupShown(selected)}" class="add-option" style="width: 40px; margin-left: 10px;">
+            </ion-radio>
+          </div>
+          <ion-list class="item-accordion" ng-show="isGroupShown(selected)" ng-cloak>
+            <div  class="item item-with-details">
+              <div>
+                <input type="text" ng-model="selected.reason['new-new']" placeholder="Add your reason..." style="width:60%" maxlength="100" class="item-input input-gray">
+                <button class="button-link icon {{selected.reasonExpand['new-new']?'button-expanded ion-arrow-up-b':'ion-arrow-down-b'}}" ng-click="selected.reasonExpand['new-new'] = !selected.reasonExpand['new-new']; reasonExpandFn()"> Details</button>
+              </div>
+              <div class="details-box" ng-show="selected.reasonExpand['new-new']" ng-cloak>
+                <div class="item-text-wrap">
+                  <textarea class="item-input" style="width: 100%;background-color:#f7f3f0;"  placeholder="Enter details here..." rows="3" ng-model="selected.newAnswerDetail" maxlength="1000"></textarea>
+                </div>
+                
+              </div>
+              <div class="text-right gray-text" ng-show="selected.reasonExpand['new-new']">{{1000 - selected.newAnswerDetail.length}} left</div>
+            </div>
+          </ion-list>
+          <div style="width:100%;align-items:center;display:inline-block;padding:8px;text-align:center" ng-show="question.answers.length>5">
+            <button class="button button-positive" ng-click="setShowMoreAnswers(question.answers)">{{showMoreAnswersLabel}}</button>
+          </div>
+          
+        </ion-list>
+
+        <div ng-if="question.type=='image'" ng-repeat="pairs in question.answers">
+          <div class="row text-center" ng-if="$even">
+            <div class="col img-answer" ng-repeat="ans in question.answers.slice($index, $index+2)" ng-click="selected.answer = ans.id; answerChanged(this)" ng-class="{'img-answer-selected':selected.answer == ans.id}">
+              <i>{{ans.name}}</i>
+              <div class="zoom-panel">
+                <img ng-src="{{ans.img}}" />
+                <a ng-click="zoomImage($event, ans)"><div></div></a>
+              </div>
+            </div>
+          </div>
+
+          <ion-list class="card item-accordion" ng-if="$even" ng-repeat="ans in question.answers.slice($index, $index+2)" ng-show="selected.answer == '{{ans.id}}'" ng-cloak>
+            <div class="item" style="color:#8c4153">
+              Give your reasons:
+            </div>
+            <div ng-repeat="r in ans.reasons">
+              <div class="item item-with-details">
+                <div style="white-space:normal">
+                  <ion-checkbox name="reason" class="slim-checkbox" ng-model="selected.reason[ans.id + '-' + r.id]" ng-checked="selected.reason[ans.id + '-' + r.id]">{{r.name}}</ion-checkbox>
+                  <button class="button-link icon {{selected.reasonExpand[ans.id+'-'+r.id]?'button-expanded ion-arrow-up-b':'ion-arrow-down-b'}}"  ng-click="selected.reasonExpand['{{ans.id}}-{{r.id}}'] = !selected.reasonExpand['{{ans.id}}-{{r.id}}']; reasonExpandFn()"> Details</button>
+                </div>
+                <div class="details-box" ng-show="selected.reasonExpand['{{ans.id}}-{{r.id}}']" ng-cloak>
+                  <div class="item-text-wrap">
+                    {{r.details}}
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div>
+              <div class="item item-with-details" style="padding:0px;">
+                <ion-checkbox name="reason" class="slim-checkbox" ng-model="selected.reason[ans.id + '-new']" ng-checked="selected.reason[ans.id + '-new']" style="padding-top: 14px;padding-bottom: 14px;margin-bottom:-8px"></ion-checkbox>
+                <input type="text" placeholder="Add another reason..." ng-model="selected.reason[ans.id + '-new-another']" maxlength="50" style="margin-left:12px" class="item-input input-gray">
+                <div class="gray-text" style="display: inline-table;font-size: 9pt;">{{50 - selected.reason[ans.id + '-new-another'].length}} left</div>
+                <button class="button-link icon {{selected.reasonExpand[ans.id + '-new']?'button-expanded ion-arrow-up-b':'ion-arrow-down-b'}}" ng-click="selected.reasonExpand['{{ans.id}}-new'] = !selected.reasonExpand['{{ans.id}}-new']; reasonExpandFn()"> Details</button>
+                <div class="details-box" ng-show="selected.reasonExpand['{{ans.id}}-new']" ng-cloak style="margin:0px 4px 4px 4px">
+                  <textarea class="item-input" placeholder="Enter details here..." style="width: 100%;background-color:#f7f3f0;" rows="3" ng-model="selected.reason[ans.id + '-new-detail']"></textarea>
+                </div>
+              </div>
+
+            </div>
+
+
+          </ion-list>
+
+         
+        </div>
+        <br>
+
+    <div class="row">
+      <div class="col">
+        <ion-checkbox class="drop-shadow" ng-model="anonymous">Make my answer anonymous</ion-checkbox>
+      </div>
+      <div class="col" style="max-width:62px;padding:0px">
+        <div class="info-icon ion-ios-information" ng-click="switchAnonymousMsgVisible()" style="line-height: 60px; margin-left: 12px;"></div>
+      </div>
+    </div>
+    <div class="row" ng-if="!anonymousMsgHide" style="padding:0px">
+      <div ng-if="switchAnonymousMsgVisibleFlag" class="col inform-dark-small">
+        <div style="width: 88%; display: inline-block;">Hide your name and bio from the person who asked the question and anyone else who views the results of this question.  If you want to show your bio but not your name, you may.</div>
+        <div ng-click="switchAnonymousMsgVisible()" style="font-size: 14pt; line-height: 90px; padding: 0px 8px 8px 14px;cursor:pointer">x</div>
+        <div class="arrow-up" ng-click="switchAnonymousMsgVisible()"></div>
+      </div>
+    </div>
+    <ion-list class="card item-input-inset" ng-show="anonymous" ng-cloak style="padding:0px">
+      <ion-radio name="anonymityOption" ng-model="anonymityOption" ng-value="checked" class="item-text-wrap">
+        Hide my name, but show my bio and expertise for this topic:
+        <div class="row" style="border: solid 1px #e2e2e2;margin-top:8px;margin-bottom:8px">
+          <div class="col col-20">
+            <img src="img/anon.svg" style="width:32px;height:32px" />
+          </div>
+          <div class="col col-80">
+            <strong>Project manager for a B2B tech firm</strong><br>
+            <i class="star-text">★☆☆☆☆</i><br>
+            <i class="gray-info">Sports is your regular hobby</i>
+          </div>
+        </div>
+        <div class="gray-info">
+          You haven't rated your expertise in Sports, but you can <a href="#">change that in your profile</a>.  Until you rate yourself in this category, your answer will be fully anonymous.
+        </div>
+      </ion-radio>
+      <ion-radio name="anonymityOption" ng-model="anonymityOption" ng-value="false">Hide both my name and my bio</ion-radio>
+    </ion-list>
+
+        <div ng-if="isDemo()" >
+          <div class="drop-shadow">
+            <div class="row" style="padding:0px;">
+              <div class="col robot">
+                <ion-checkbox ng-model="recaptchaObj" ng-change="recaptchaChange()" ng-checked="recaptchaObj[question.id]">I'm not a robot
+              </div>
+              <div class="col" style="max-width:68px;padding:8px">
+                <img src="img/recaptcha.png" style="height:40px;float:right"/>
+              </div>
+            </div>
+          </div>
+          <div style="padding-top: 15px">If you <a href="#/onboarding/1invitation">sign up via Facebook</a>, you won't have to tell us you aren't a robot to answer questions here.</div>
+        </div>
+    <div class="padding" >
+      <a href="#/voted/{{question.id}}" ng-click="castVote($event)" class="button button-block button-positive">
+        <strong>Cast your vote!</strong>
+      </a>
+    </div>
+      </div>
+
+      <div  class="padding" style="padding-top:0px">
+        <a href="" class="button button-block button-outline button-dark next-btn" ng-click="gotoNextQuestion();">
+          <i>Next question</i>
+          <span>(from 1,405 submitted today)</span>
+        </a>
+      </div>
+    </div>
+
+    <div ng-if="isDemo()" class="small-info">
+      <a href="" ng-click="switchLetRegisterMsgVisible()">
+        <i>Your votes won't be included in the main results until you register.</i>
+      </a>
+    </div>
+
+  <div ng-if="letRegisterMsgVisibleFlag && !letRegisterMsgHide" style="border: solid 1px #e2e2e2; padding:8px">
+      <div style="text-align:center;font-size:larger;font-weight:bold">Anonymous voting</div>
+      <div>
+        <br />
+        <p>
+          We allow unregistered users to vote on questions so they can experience Ask the World more easily. To ensure the credibility of votes, by default we do not count unregistered votes in the results. Viewers will need to specifically include unregistered respondents.
+        </p>
+        <p>
+          As soon as you register on the site, all of your previous votes will carry over to your new account. If you opted to vote anonymously, that will remain anonymous even after you register.
+        </p>
+      </div>
+      <div class="no_dup" ng-click="switchLetRegisterMsgVisible()">close</div>
+    </div>
+
+    <div ng-if="isHomePage()">
+      <br />
+      <div class="text-center">
+        <h2>More new questions</h2>
+      </div>
+      <ion-list>
+        <ion-item data-ng-repeat="q in moreNewQuestions track by $index" style="padding:0px;margin:10px 0px 10px 0px;" class="question-item">
+          <div class="row" style="padding:8px;">
+            <div class="col" style="flex:none;width:60px;display:flex;align-items:center"><div class="topic-bg-{{q.category}}" style="height:42px;width:42px;margin-bottom: 4px"></div> </div>
+            <div class="col item-text-wrap">
+              <a href="#/answering/{{q.id}}" class="question-list"><i>{{q.q}}</i></a>
+              <br />
+              <div class="row" style="padding:0px;font-family:VarelaRoundRegular;font-size:10pt;">
+                <div class="col" style="padding: 8px 0px 0px;">
+                  in <a href="#/question_feed_for_topic?topic={{q.category}}" style="text-decoration:none;color:inherit">
+                    <i style="text-transform: capitalize;" class="topic-text-{{q.category}}">{{q.category}}</i>
+                  </a>
+                </div>
+                <div class="col gray-info" style="padding: 8px 0px 0px;">{{q.posted}} ago</div>
+              </div>
+            </div>
+          </div>
+        </ion-item>
+      </ion-list>
+      <div class="text-center">
+        <a href="#" data-ng-click="loadMoreQuestions()">Show More Questions</a>
+      </div>
+
+      <br />
+      <br />
+      <br />
+
+
+      <div class="inform">
+        <img src="img/compass.svg" style="height:100px;" />
+
+        <h3>Escape & get inspired</h3>
+        <br />
+        <p>Bored with your routine? Get new perspectives on just about anything by getting interesting questions delivered to you.</p>
+        <br />
+        <a href="#/about" class="button button-block button-positive text-center">See it in action</a>
+        <br />
+        <br />
+      </div>
+
+      <div class="inform">
+        <img src="img/trees.svg" style="height:100px;" />
+        <h3>Lend your voice without trolls or drama</h3>
+        <br />
+        <p>Our community gives you a place to discuss almost any topic that is serious or fun, without getting beaten up by elitists or playground cyberbullies.</p>
+        <br />
+        <a href="#/about" class="button button-block button-positive text-center">Check out our community</a>
+        <br />
+        <br />
+      </div>
+
+      <div class="inform">
+        <img src="img/map.svg" style="height:100px;" />
+        <h3>Mass opinions from any kind of audience</h3>
+        <br />
+        <p>Want to find out what people like you think about a relationship question?  Or, how about getting vacation tips from people who live near your destination?</p>
+        <br />
+        <a href="#/answering/1" class="button button-block button-positive text-center">Answer a question to try filtering</a>
+        <br />
+        <br />
+      </div>
+
+      <div class="inform">
+        <img src="img/backpack.svg" style="height:100px;" />
+        <h3>Stay as anonymous as you need to</h3>
+        <br />
+        <p>You may want to ask or answer questions without the world knowing.  That's fine.  Even though accounts here are connected to Facebook, you can ask or answer any question here anonymously.</p>
+        <br />
+        <a href="#/about" class="button button-block button-positive text-center" style="line-height: 24px; min-height: 50px;">Learn more about privacy<i style="line-height:20px;display:block" > at Ask the World</i> </a>
+        <br />
+        <br />
+      </div>
+
+      <div class="inform">
+        <img src="img/lamp.svg" style="height:100px;" />
+        <h3>Keep interesting questions right in front of you</h3><br />
+        <p>See a question you don't want to answer?  Skip it, and get another one.  Want a list of great questions that you'll find interesting?  Check out Questions for Me.</p>
+        <br />
+        <a href="#/onboarding/1invitation" class="button button-block button-positive text-center">Sign up to set up your feed</a>
+        <br />
+        <br />
+      </div>
+
+      <div class="inform-dark">
+        <img src="img/lurk.svg" style="height:100px;" />
+        <h3>Want to lurk first?</h3><br />
+        <p>Too many websites tell you to register before they've even told you what they are.  But no hard feelings here if you don't want to sign up yet.  You can still answer questions and see how asking questions works.</p>
+        <br />
+        <a href="#/answering/1" class="button button-block button-stable">Answer questions now</a>
+        <a href="#/onboarding/1invitation" class="button button-block button-facebook"><span class="icon-left ion-social-facebook"></span><span>Log in with Facebook</span></a>
+        <br />
+        <br />
+      </div>
+    </div>
+
+
+    <!-- <div class="no_dup" ng-click="goAsk()">Ask a question</div> -->
+  </ion-content>
+</ion-view>
+
+
+
+
+
+
+
+
+
+

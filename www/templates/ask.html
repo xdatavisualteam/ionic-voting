@@ -1,0 +1,111 @@
+<ion-view title="Ask a question" ng-controller="AskCtrl">
+  <ion-content class="padding">
+    <div ng-if="isDemo">
+      <div class="row">
+        <div class="col col-20"><img ng-src="img/ask2.svg" style="height: 54px; width: 54px;" /></div>
+        <div class="col col-80"><h1>Ask your question to a nice, helpful community.</h1></div>
+      </div>
+
+      <div class="gray-info">
+        <div>
+          You can ask us anything as long as it is in line with our <a href="/#/about">community guidelines</a>. In short,<br />
+          <div style="padding-top: 10px; padding-bottom: 10px">
+
+            <ul style="list-style: initial;">
+              <li style="margin-left: 12px;">Be respectful and friendly.</li>
+              <li style="margin-left: 12px;">Treat other users as you would treat someone you just meet in real life.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <br />
+
+    <div class="text-center"><h2>Ask a question</h2></div>
+    <div class="row">
+      <div class="col">
+        <label class="item-input-wrapper">
+          <input type="text" class="ele-full" placeholder="Say or type your question" ng-model="$root.askingTitle" ng-trim="false" maxlength="400"></input>
+        </label>
+      </div>
+      <div class="col" style="max-width: 62px;">
+        <button class="button icon ion-mic-a button-positive" ng-click="recordQuestion($root.askingTitle)"></button>
+      </div>
+    </div>
+    <div class="row gray-info">
+      <div ng-if="!askingTitle.length || askingTitle.length<=200" class="col col-80 text-right" style="padding-top:0px;">{{200 - $root.askingTitle.length}} left</div>
+      <div ng-if="askingTitle.length>200" class="col col-80 text-right" style="color:red;padding-top:0px;">{{$root.askingTitle.length-200}} exceeded</div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <label class="item item-input-wrapper">
+          <textarea class="ask-detail" placeholder="Add question details (optional)" ng-model="$root.askingDesc" ng-click="detailClicked()" ng-trim="false" maxlength="900"></textarea>
+        </label>
+      </div>
+      <div class="col" style="max-width:62px;">
+        <button class="button icon ion-mic-a button-positive" ng-click="recordQuestion($root.askingDesc)"></button>
+      </div>
+    </div>
+    <div class="row  gray-info">
+      <div ng-if="!askingDesc.length || askingDesc.length<=500" class="col col-80 text-right">{{500 - $root.askingDesc.length}} left</div>
+      <div ng-if="askingDesc.length>500" class="col col-80 text-right" style="color:red">{{$root.askingDesc.length-500}} exceeded</div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <ion-checkbox class="drop-shadow" ng-model="anonymous">Make my question anonymous</ion-checkbox>
+      </div>
+      <div class="col" style="max-width:62px;">
+        <div class="info-icon ion-ios-information" ng-click="switchAnonymousMsgVisible()"  style="line-height: 60px; margin-left: 12px;"></div>
+      </div>
+    </div>
+    <div class="row" ng-show="!anonymousMsgHideForAsking && switchAnonymousMsgVisibleFlag">
+      <div class="col inform-dark-small">
+        <div style="width: 86%; display: inline-block;">You may post your question anonymously, or choose to hide your name but show your bio only.</div>
+        <div ng-click="switchAnonymousMsgVisible()" style="font-size: 14pt; line-height: 50px; padding: 0px 8px 8px 14px;cursor:pointer">x</div>
+        <div class="arrow-up" ng-click="switchAnonymousMsgVisible()"></div>
+        
+      </div>
+      </div>
+    
+    <ion-list class="card item-input-inset" ng-show="anonymous" ng-cloak style="padding:0px">
+      <ion-radio name="anonymityOption" ng-model="anonymityOption" ng-value="checked" class="item-text-wrap">
+        Hide my name, but show my bio and expertise for this topic:
+        <div class="row" style="border: solid 1px #e2e2e2;margin-top:8px;margin-bottom:8px">
+          <div class="col col-20">
+            <img src="img/anon.svg" style="width:32px;height:32px" />
+          </div>
+          <div class="col col-80">
+            <strong>Project manager for a B2B tech firm</strong><br>
+            <i class="star-text">★☆☆☆☆</i><br>
+            <i class="gray-info">Sports is your regular hobby</i> 
+          </div>
+        </div>
+        <div class="gray-info">
+          You haven't rated your expertise in Sports, but you can <a href="#">change that in your profile</a>.  Until you rate yourself in this category, your answer will be fully anonymous.
+        </div>
+      </ion-radio>
+      <ion-radio name="anonymityOption" ng-model="anonymityOption" ng-value="false">Hide both my name and my bio</ion-radio>
+    </ion-list>
+    <div class="padding">
+      <a href="" ng-click="addQuestionDetail()" class="button button-block button-positive">
+        Add Options (optional) & Ask
+      </a>
+    </div>
+    <div ng-if="isDemo && !closeBtnClickedDemoAsk" class="bg-box padding">
+      <div class="row">
+        <div class="col col-20"><img src="img/mic.svg" style="height: 54px; width: 54px;"></div>
+        <div class="col col-80"><h1>Tired of typing on your phone?</h1></div>
+      </div>
+      <div class="gray-info">
+        <p>Finally: a question and answer site that lets you actually ask your question, instead of fixing typos on your device.  Use the microphone 
+        <a class="button icon ion-mic-a button-positive" style="transform: scale(0.5, 0.5); margin-top: -14px; margin-left: -10px; margin-right: -10px;width:16px;"></a> button to give it a go.</p>
+        <p>(No need to worry about privacy.  Other people here will only be able to see the text of what you said, not hear your voice.)</p>
+        <p>If you want to type your question, you can still do that.</p>
+      </div>
+      <div style="text-align: center">
+        <a ng-click="closeBtnClickDemoAsk()" href="#">Ok, got it.</a>
+      </div>
+    </div>
+	</ion-content>
+</ion-view>

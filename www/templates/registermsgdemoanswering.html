@@ -1,0 +1,34 @@
+<ion-view title="Registration">
+	<ion-content class="padding">
+		<div class="row">
+			<div class="col col-20"><img src="img/blank.png" width="20px" height="20px" /></div>
+			<div class="col col-80" style="font-size: 18px; padding-bottom: 15px;">
+				We hope you've enjoyed Ask the World so far.
+			</div>
+		</div>
+		<div style="padding-bottom: 15px;">
+			Until now, you have been voting as an unregistered user.  People are able to see your votes, but only if they decide to show them via filtering. 
+		</div>
+		<div style="padding-bottom: 15px;">
+			Sign up via Facebook to also get these benefits:
+		</div>
+		<div style="padding-bottom: 20px;">
+			<li>Find interesting questions faster using a question feed tailored just for you</li>
+			<li>Answer questions without having to say you aren't a robot</li>
+			<li>Use up to 15 kinds of filters on results to see exactly what an audience thinks</li>
+			<li>Get and give advice in a nice community without elitists or trolls</li>
+			<li>Be able to ask questions - about any topic safe for work</li>
+			<li>Show the world your expertise in any of our topics</li>
+			<li>Ask or answer any question anonymously</li>
+		</div>
+		<div style="padding-bottom: 20px;">
+			<div style="padding-top: 20px;">
+				<button class="button button-block icon-left ion-social-facebook button-positive">Connect with Facebook</button>
+			</div>
+		</div>
+  	  	<div class="no_dup" style="font-size: 15px; padding-top: 0" ng-click="continueAnswering();">No thanks, I'll continue answering questions</div>
+  	  	<div class="no_dup" style="font-size: 15px; padding-top: 15px; padding-bottom: 20px" ng-click="goDemoAsk();">I'd like to ask a question first</div>
+  	  	<ion-checkbox name="donotshowregmsg" ng-model="donotshowregmsg" ng-checked="" ng-change="doNotShowRegMsg(donotshowregmsg);">Please don't show this again</ion-checkbox>
+  	  	<div style="padding-top: 20px;">&nbsp;</div>
+	</ion-content>
+</ion-view>

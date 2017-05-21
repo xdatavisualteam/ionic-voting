@@ -1,0 +1,38 @@
+<ion-view title="Question Feed" ng-controller="OnboardingCtrl">
+  <ion-content class="padding">
+    
+    
+      <div class="text-center">
+        <div class="topic topic-bg-{{topic}} topic-text-{{topic}}">
+          <h2>{{topicName}}</h2>
+        </div>
+        <br />
+        <a class="button button-small {{topicFollowingStr=='Follow'?'button-positive':'button-outline'}}" ng-click="followTopic()" style="padding: 2px 10px;">{{topicFollowingStr}}</a>
+      </div>
+
+
+    <ion-list>
+      <ion-item data-ng-repeat="q in filteredMissionQues track by $index" style="padding:0px;margin:10px 0px 10px 0px;" class="question-item">
+        <div class="row" style="padding:8px;">
+          <div class="col item-text-wrap" >
+            <a href="#/answering/{{q.id}}" class="question-list" style="font-size:14pt !important;"><i>{{q.q}}</i></a>
+            <br />
+            <div class="row" style="padding:0px;font-family:VarelaRoundRegular;font-size:10pt;">
+              <div class="col" style="padding: 8px 0px 0px;">
+                <div class="asked-by" style="padding:0px;font-size:10pt">
+                  <img ng-src="img/user.svg" /><p>
+                    Asked by&nbsp;<a href="" ng-click="showAlert('Alert', 'Coming soon!')">{{q.asker}}</a>&nbsp;{{q.posted}} ago
+                  </p>
+                </div>
+              </div>
+              
+            </div>
+          </div>
+        </div>
+      </ion-item>
+	</ion-list>
+	<ion-infinite-scroll distance="2"
+        	on-infinite="loadMoreData1()"
+        ></ion-infinite-scroll>
+  </ion-content>
+</ion-view>

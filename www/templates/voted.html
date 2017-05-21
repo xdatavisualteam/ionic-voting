@@ -1,0 +1,110 @@
+<ion-view title="{{question.q}}" ng-controller="VotedCtrl">
+  <ion-content class="padding">
+    <div ng-if="isDemo" class="bg-box">
+      <div class="row">
+        <div class="col col-20"><img ng-src="img/star.svg" style="width:54px" /></div>
+        <div class="col col-80">
+          <h3>Thanks for voting!</h3>
+          <div class="gray-text">Your vote is shown with the rest of the results below.<br><a href="#/filteringtype/{{question.id}}">Try filtering the results</a> to find out what a more specific audience thought.</div>
+        </div>
+      </div>
+    </div>
+    <div class="text-center">
+      <a href="#/question_feed_for_topic?topic={{question.category}}" class="topic topic-bg-{{question.category}} topic-text-{{question.category}}">
+        {{topicNames[question.category]}}
+      </a>
+    </div>
+    <h1 class="title-desc">{{question.q}}</h1>
+    <div class="asked-by">
+      <img ng-src="img/user.svg" /><p>
+        Asked by <a href="" ng-click="showAlert('Alert', 'Coming soon!')">{{question.asker}}</a>
+      </p>
+    </div>
+
+    <div class="bg-box" style="padding: 0px;position:relative;border-radius: 4px;height:{{topAnswer.img?'94px':'74px'}};">
+      <div ng-show="!topAnswer.img" style="padding:10px;">
+        {{topAnswer.name}}
+        <br />
+        <span class="gray-text">{{topAnswer.percent}}% ({{topAnswer.votes}} votes)</span>
+      </div>
+      <div ng-show="topAnswer.img" style="display: flex;align-items:center">
+        <img src="{{topAnswer.img}}" style="height:94px;border-radius: 4px 0px 0px 4px;" />
+
+        <div style="padding:8px;display:inline-table">
+          <i style="display:block;">
+            {{topAnswer.name}}
+          </i>
+          <i class="theme-text">{{topAnswer.percent}}% ({{topAnswer.votes}} votes)</i>
+        </div>
+      </div>
+      <canvas id="answerDonut" style="position:absolute;right: 10px;top: {{topAnswer.img?'-14px':'-22px'}};" ng-init="buildCanvas(this)"></canvas>
+    </div>
+
+<h3>Results</h3>
+
+    <div ng-repeat="ans in question.answers| limitTo:limitAnswers">
+      <div class="row row-center">
+        <div ng-show="ans.img" class="col" style="max-width:98px;">
+          <div class="zoom-panel" style="width:90px;height:90px;border-radius:6px;">
+            <img ng-src="{{ans.img}}" style="max-width:90px;object-fit: cover;height: 100%;" />
+            <a ng-click="zoomImage($event, ans)"><div></div></a>
+          </div>
+        </div>
+        <div class="col">
+          <i>{{ans.name}}</i>
+          <progress max="100" value="{{ans.percent}}" class="drop-shadow"></progress>
+          <span class="gray-text">{{ans.percent}}% ({{ans.votes}} votes)</span>
+        </div>
+        <div style="padding-left:8px">
+          <a class="icon {{selected.answerExpand[ans.id]?'ion-arrow-up-b':'ion-arrow-down-b'}}" ng-click="selected.answerExpand['{{ans.id}}'] = !selected.answerExpand['{{ans.id}}']">Reasons</a>
+        </div>
+      </div>
+      <div class="padding">
+        <div ng-repeat="r in ans.reasons| limitTo:limitReasons" ng-show="selected.answerExpand['{{ans.id}}']" ng-cloak>
+          <div class="row" style="padding-bottom: 0px;">
+            <div class="col" style="padding:0px;">{{r.name}}</div>
+            <div class="col col-10" style="padding:0px;">{{r.votes}}</div>
+            <div>
+              <button class="button-link icon {{selected.reasonExpand[r.id]?'button-expanded ion-arrow-up-b':'ion-arrow-down-b'}}" ng-click="selected.reasonExpand['{{r.id}}'] = !selected.reasonExpand['{{r.id}}']"> Details</button>
+            </div>
+          </div>
+          <div class="details-box" ng-show="selected.reasonExpand['{{r.id}}']" ng-cloak>
+            <div class="item-text-wrap">
+              {{r.details}}
+            </div>
+          </div>
+        </div>
+        <div style="width:100%;align-items:center;display:inline-block;padding:8px;text-align:center" ng-show="selected.answerExpand['{{ans.id}}'] && ans.reasons.length>5">
+          <a href="" ng-click="setShowMoreReasons(ans.reasons)">{{showMoreReasonsLabel}}</a>
+        </div>
+      </div>
+    </div>
+    <div style="width:100%;align-items:center;display:inline-block;padding:8px;text-align:center" ng-show="question.answers.length>5">
+      <button class="button button-positive" ng-click="setShowMoreAnswers(question.answers)">{{showMoreAnswersLabel}}</button>
+    </div>
+
+
+    <div class="padding">
+      <a href="" class="button button-block next-btn button-positive" ng-click="gotoNextQuestion();">
+        <b>Next question</b>
+        <i style="color:#d0b3b3">(Continuing in {{counter}} seconds)</i>
+      </a>
+    </div>
+    <div class="row">
+      <div class="col">
+        <button class="button button-block button-light icon-left ion-android-share-alt " ng-click="popupMsg();">Share</button>
+      </div>
+      <div class="col">
+        <button class="button button-block button-light icon-left ion-android-options" ng-click="filtering()">Filter Responses</button>
+      </div>
+    </div>
+    <div class="text-center">
+      <br /><br />
+      <a ng-click="goAsk();">Ask a question</a>
+      <br />
+      <br />
+      <a ng-click="goAnswering();">Change my answer</a>
+    </div>
+
+  </ion-content>
+</ion-view>

@@ -1,0 +1,90 @@
+@font-face {
+    font-family: 'DosisBold';
+    src: url('fonts/DosisBold.eot');
+    src: url('fonts/DosisBold.eot') format('embedded-opentype'),
+         url('fonts/DosisBold.woff2') format('woff2'),
+         url('fonts/DosisBold.woff') format('woff'),
+         url('fonts/DosisBold.ttf') format('truetype'),
+         url('fonts/DosisBold.svg#DosisBold') format('svg');
+}
+
+@font-face {
+    font-family: 'DosisExtraBold';
+    src: url('fonts/DosisExtraBold.eot');
+    src: url('fonts/DosisExtraBold.eot') format('embedded-opentype'),
+         url('fonts/DosisExtraBold.woff2') format('woff2'),
+         url('fonts/DosisExtraBold.woff') format('woff'),
+         url('fonts/DosisExtraBold.ttf') format('truetype'),
+         url('fonts/DosisExtraBold.svg#DosisExtraBold') format('svg');
+}
+
+@font-face {
+    font-family: 'DosisExtraLight';
+    src: url('fonts/DosisExtraLight.eot');
+    src: url('fonts/DosisExtraLight.eot') format('embedded-opentype'),
+         url('fonts/DosisExtraLight.woff2') format('woff2'),
+         url('fonts/DosisExtraLight.woff') format('woff'),
+         url('fonts/DosisExtraLight.ttf') format('truetype'),
+         url('fonts/DosisExtraLight.svg#DosisExtraLight') format('svg');
+}
+
+@font-face {
+    font-family: 'DosisLight';
+    src: url('fonts/DosisLight.eot');
+    src: url('fonts/DosisLight.eot') format('embedded-opentype'),
+         url('fonts/DosisLight.woff2') format('woff2'),
+         url('fonts/DosisLight.woff') format('woff'),
+         url('fonts/DosisLight.ttf') format('truetype'),
+         url('fonts/DosisLight.svg#DosisLight') format('svg');
+}
+
+@font-face {
+    font-family: 'DosisMedium';
+    src: url('fonts/DosisMedium.eot');
+    src: url('fonts/DosisMedium.eot') format('embedded-opentype'),
+         url('fonts/DosisMedium.woff2') format('woff2'),
+         url('fonts/DosisMedium.woff') format('woff'),
+         url('fonts/DosisMedium.ttf') format('truetype'),
+         url('fonts/DosisMedium.svg#DosisMedium') format('svg');
+}
+
+@font-face {
+    font-family: 'DosisRegular';
+    src: url('fonts/DosisRegular.eot');
+    src: url('fonts/DosisRegular.eot') format('embedded-opentype'),
+         url('fonts/DosisRegular.woff2') format('woff2'),
+         url('fonts/DosisRegular.woff') format('woff'),
+         url('fonts/DosisRegular.ttf') format('truetype'),
+         url('fonts/DosisRegular.svg#DosisRegular') format('svg');
+}
+
+@font-face {
+    font-family: 'DosisSemiBold';
+    src: url('fonts/DosisSemiBold.eot');
+    src: url('fonts/DosisSemiBold.eot') format('embedded-opentype'),
+         url('fonts/DosisSemiBold.woff2') format('woff2'),
+         url('fonts/DosisSemiBold.woff') format('woff'),
+         url('fonts/DosisSemiBold.ttf') format('truetype'),
+         url('fonts/DosisSemiBold.svg#DosisSemiBold') format('svg');
+}
+
+@font-face {
+    font-family: 'MaterialDesignIconicFont';
+    src: url('fonts/MaterialDesignIconicFont.eot');
+    src: url('fonts/MaterialDesignIconicFont.eot') format('embedded-opentype'),
+         url('fonts/MaterialDesignIconicFont.woff2') format('woff2'),
+         url('fonts/MaterialDesignIconicFont.woff') format('woff'),
+         url('fonts/MaterialDesignIconicFont.ttf') format('truetype'),
+         url('fonts/MaterialDesignIconicFont.svg#MaterialDesignIconicFont') format('svg');
+}
+
+@font-face {
+    font-family: 'VarelaRoundRegular';
+    src: url('fonts/VarelaRoundRegular.eot');
+    src: url('fonts/VarelaRoundRegular.eot') format('embedded-opentype'),
+         url('fonts/VarelaRoundRegular.woff2') format('woff2'),
+         url('fonts/VarelaRoundRegular.woff') format('woff'),
+         url('fonts/VarelaRoundRegular.ttf') format('truetype'),
+         url('fonts/VarelaRoundRegular.svg#VarelaRoundRegular') format('svg');
+}
+

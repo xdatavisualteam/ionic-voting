@@ -1,0 +1,249 @@
+<ion-view title="Add Question Detail">
+	<ion-content  class="padding">
+    {{checkIfEdit()}}
+    <div ng-if="isDemo">
+      <div class="row">
+        <div class="col col-20"><img ng-src="img/ask2.svg" style="height: 54px; width: 54px;" /></div>
+        <div class="col col-80"><h1>Ask your question to a nice, helpful community.</h1></div>
+      </div>
+
+      <div class="gray-info">
+        <div>
+          You can ask us anything as long as it is in line with our <a href="/#/about">community guidelines</a>. In short,<br />
+          <div style="padding-top: 10px; padding-bottom: 10px">
+
+            <ul style="list-style: initial;">
+              <li style="margin-left: 12px;">Be respectful and friendly.</li>
+              <li style="margin-left: 12px;">Treat other users as you would treat someone you just meet in real life.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <br />
+
+    <div class="text-center"><h2>Ask a question</h2></div>
+
+    <div class="asked-box">
+      <div style="display:inline-block;">{{$root.askingTitle}}</div>
+      <a ng-click="editAsk()">EDIT <img src="img/edit.svg" style="width:22px;height:22px;margin-left: 4px;"/></a>
+    </div>
+    
+    <div class="asked-box">
+      <div style="display:inline-block;">
+        {{$root.askingDesc}}
+      </div>
+
+      <a ng-click="editAsk()" ng-if="$root.askingDesc.length>0">
+        EDIT <img src="img/edit.svg" style="width:22px;height:22px;margin-left: 4px;" />
+      </a>
+
+      <div ng-if="!$root.askingDesc || $root.askingDesc.length==0" style="text-align:center">
+        <a ng-click="editAsk()" style="float:none !important;display:inline">
+          Add more details
+        </a>
+      </div>
+    </div>
+
+    <br />
+		<h4>Answers</h4>
+		<div class="padding">
+			<div class="a">
+				<div class="button button-block button-positive" ng-click="switchOption()">{{switchTypeTxt()}}</div>
+				<ion-checkbox ng-model="notsure" ng-click="allowCreateOptions();" ng-checked="allowCreateAsk" ng-disabled="askTypeOption">Let people add their own answers</ion-checkbox>
+				<div style="padding-top: 20px; padding-bottom: 10px; font-size: 12pt;font-family:'DosisMedium'">Provide answers to vote on ({{!askTypeOption ? "optional" : "at least two"}})</div>
+        <div ng-if="!askTypeOption">
+
+          <div class="row">
+            <label class="item-input-wrapper">
+              <input type="text" class="ele-full" placeholder="Add the first option..." ng-model="question.firstOption"></input>
+            </label>
+            <div class="col col-20" style="padding-top: 0px;">
+              <button class="button icon ion-mic-a button-positive"></button>
+            </div>
+          </div>
+          <div class="row">
+            <label class="item-input-wrapper">
+              <input type="text" class="ele-full" placeholder="Add the second option..." ng-model="question.secondOption"></input>
+            </label>
+            <div class="col col-20" style="padding-top: 0px;">
+              <button class="button icon ion-mic-a button-positive"></button>
+            </div>
+          </div>
+          <div class="row">
+            <label class="item-input-wrapper">
+              <input type="text" class="ele-full" placeholder="Add the third option..." ng-model="question.thirdOption"></input>
+            </label>
+            <div class="col col-20" style="padding-top: 0px;">
+              <button class="button icon ion-mic-a button-positive"></button>
+            </div>
+          </div>
+          <div class="row">
+            <label class="item-input-wrapper">
+              <input type="text" class="ele-full" placeholder="Add the fourth option..." ng-model="question.fourthOption"></input>
+            </label>
+            <div class="col col-20" style="padding-top: 0px;">
+              <button class="button icon ion-mic-a button-positive"></button>
+            </div>
+          </div>
+          <div class="row">
+            <label class="item-input-wrapper">
+              <input type="text" class="ele-full" placeholder="Add the fifth option..." ng-model="question.fifthOption"></input>
+            </label>
+            <div class="col col-20" style="padding-top: 0px;">
+              <button class="button icon ion-mic-a button-positive"></button>
+            </div>
+          </div>
+
+        </div>
+
+				<div ng-if="askTypeOption">
+					<div class="row" style="padding:0px">
+						<div class="col 50" style="padding-left:0px;font-size:8pt;">
+              <div class="brand-label"> {{question.imgName1 && question.imgName1.length>0?question.imgName1:'First option'}}</div>
+              <a href="" ng-click="showImgName(1, true)" ng-show="question.imgName1 && question.imgName1.length>0">RENAME</a>
+              <a href="" ng-click="showImgName(1, true)" ng-show="!question.imgName1 || question.imgName1.length==0">ADD NAME</a>
+              <div ng-show="question.imgNameShow1">
+                <label class="item-input-wrapper">
+                  <input type="text" class="ele-full" placeholder="Add a name" ng-model="question.imgNameTmp1" ng-trim="false" maxlength="50" />
+                </label>
+                <a href="" ng-click="showImgName(1, false, true)">SAVE</a>
+                <div class="gray-info" style="float:right">{{50 - question.imgNameTmp1.length}} left</div>
+              </div>
+              <a ng-if="!picFile1" class="button button-block button-positive icon-right" ng-click="imgClick(1);">
+                Add photo
+                <div ng-include="'img/photo.svg'"></div>
+              </a>
+              <div class="img-upload" ng-if="picFile1">
+                <img ng-src="{{imgPrev1}}" id="file_1" />
+                <div style="height:22px">
+                  <a ng-click="imgClick(1);" style="display:flex;float:right">CHANGE PHOTO <img src="img/edit.svg" style="width:22px;height:22px;margin-left: 4px;"></a>
+                </div>
+              </div>
+							
+							<input type="file" id="img_1" ngf-select ng-model="picFile1" name="file" accept="image/*" style="display: none" ng-change="setFile(picFile1, 'imgPrev1')"/>
+						</div>
+            <div class="col 50" style="padding-right:0px;font-size:8pt;">
+              <div class="brand-label"> {{question.imgName2 && question.imgName2.length>0?question.imgName2:'Second option'}}</div>
+              <a href="" ng-click="showImgName(2, true)" ng-show="question.imgName2 && question.imgName2.length>0">RENAME</a>
+              <a href="" ng-click="showImgName(2, true)" ng-show="!question.imgName2 || question.imgName2.length==0">ADD NAME</a>
+              <div ng-show="question.imgNameShow2">
+                <label class="item-input-wrapper">
+                  <input type="text" class="ele-full" placeholder="Add a name" ng-model="question.imgNameTmp2" ng-trim="false" maxlength="50" />
+                </label>
+                <a href="" ng-click="showImgName(2, false, true)">SAVE</a>
+                <div class="gray-info" style="float:right">{{50 - question.imgNameTmp2.length}} left</div>
+              </div>
+              <a ng-if="!picFile2" class="button button-block button-positive icon-right" ng-click="imgClick(2);">
+                Add photo
+                <div ng-include="'img/photo.svg'"></div>
+              </a>
+              <div class="img-upload" ng-if="picFile2">
+                <img ng-src="{{imgPrev2}}" id="file_2" />
+                <div style="height:22px">
+                  <a ng-click="imgClick(2);" style="display:flex;float:right">CHANGE PHOTO <img src="img/edit.svg" style="width:22px;height:22px;margin-left: 4px;"></a>
+                </div>
+              </div>
+
+              <input type="file" id="img_2" ngf-select ng-model="picFile2" name="file" accept="image/*" style="display: none" ng-change="setFile(picFile2, 'imgPrev2')" />
+            </div>
+					</div>
+					<div class="row" style="padding:0px">
+            <div class="col 50" style="padding-left:0px;font-size:8pt;">
+              <div class="brand-label"> {{question.imgName3 && question.imgName3.length>0?question.imgName3:'Third option'}}</div>
+              <a href="" ng-click="showImgName(3, true)" ng-show="question.imgName3 && question.imgName3.length>0">RENAME</a>
+              <a href="" ng-click="showImgName(3, true)" ng-show="!question.imgName3 || question.imgName3.length==0">ADD NAME</a>
+              <div ng-show="question.imgNameShow3">
+                <label class="item-input-wrapper">
+                  <input type="text" class="ele-full" placeholder="Add a name" ng-model="question.imgNameTmp3" ng-trim="false" maxlength="50" />
+                </label>
+                <a href="" ng-click="showImgName(3, false, true)">SAVE</a>
+                <div class="gray-info" style="float:right">{{50 - question.imgNameTmp3.length}} left</div>
+              </div>
+              <a ng-if="!picFile3" class="button button-block button-positive icon-right" ng-click="imgClick(3);">
+                Add photo
+                <div ng-include="'img/photo.svg'"></div>
+              </a>
+              <div class="img-upload" ng-if="picFile3" style="padding-right:0px">
+                <img ng-src="{{imgPrev3}}" id="file_3" />
+                <div style="height:22px">
+                  <a ng-click="imgClick(3);" style="display:flex;float:right">CHANGE PHOTO <img src="img/edit.svg" style="width:22px;height:22px;margin-left: 4px;"></a>
+                </div>
+              </div>
+
+              <input type="file" id="img_3" ngf-select ng-model="picFile3" name="file" accept="image/*" style="display: none" ng-change="setFile(picFile3, 'imgPrev3')" />
+            </div>
+            <div class="col 50" style="padding-right:0px;font-size:8pt;">
+              <div class="brand-label"> {{question.imgName4 && question.imgName4.length>0?question.imgName4:'Fourth option'}}</div>
+              <a href="" ng-click="showImgName(4, true)" ng-show="question.imgName4 && question.imgName4.length>0">RENAME</a>
+              <a href="" ng-click="showImgName(4, true)" ng-show="!question.imgName4 || question.imgName4.length==0">ADD NAME</a>
+              <div ng-show="question.imgNameShow4">
+                <label class="item-input-wrapper">
+                  <input type="text" class="ele-full" placeholder="Add a name" ng-model="question.imgNameTmp4" ng-trim="false" maxlength="50" />
+                </label>
+                <a href="" ng-click="showImgName(4, false, true)">SAVE</a>
+                <div class="gray-info" style="float:right">{{50 - question.imgNameTmp4.length}} left</div>
+              </div>
+              <a ng-if="!picFile4" class="button button-block button-positive icon-right" ng-click="imgClick(4);">
+                Add photo
+                <div ng-include="'img/photo.svg'"></div>
+              </a>
+              <div class="img-upload" ng-if="picFile4">
+                <img ng-src="{{imgPrev4}}" id="file_4" />
+                <div style="height:22px">
+                  <a ng-click="imgClick(4);" style="display:flex;float:right">CHANGE PHOTO <img src="img/edit.svg" style="width:22px;height:22px;margin-left: 4px;"></a>
+                </div>
+              </div>
+
+              <input type="file" id="img_4" ngf-select ng-model="picFile4" name="file" accept="image/*" style="display: none" ng-change="setFile(picFile4, 'imgPrev4')" />
+            </div>
+					</div>
+				</div>
+			</div>
+      
+      <br />
+      <h4>Recommend this question</h4>
+	
+			<div style="text-align: left" class="gray-info">Members in any demographics that you recommend can receive your question in their For Me feed.</div>
+      <div style="padding-top: 10px;">
+        <a class="button button-block button-stable text-center" href="#/filteringtype" style="line-height: 24px; min-height: 50px;">
+          Recommend your question
+          <i style="line-height:20px;display:block"> to specific types of people</i>
+        </a>
+       
+        <div ng-if="currentFilterSelectionStr" class="inform-stable-small" style="text-transform:lowercase;font-size:11pt;">
+          <div style="display: inline-block;">{{currentFilterSelectionStr}}</div>
+          <div class="arrow-up" style="border-bottom-color:#d9c098"></div>
+        </div>
+
+      </div>
+			<div style="text-align: left; padding-bottom: 20px; padding-top: 35px; font-size: 20px;"><b>Results and privacy</b></div>
+			<ion-checkbox style="font-size: 10pt;" ng-model="allowSee" ng-click="allowSeeOptions();" ng-checked="allowSee">Let people see the results without voting</ion-checkbox>
+			<a ng-click="goPostQuestion()" class="button button-block button-positive">
+				<strong>Post My Question</strong>  
+			</a>
+			<div style="text-align: center"><a href="#" ng-click="editAsk()">Edit my question</a></div>
+      <br />
+
+      <div ng-if="isDemo && !closeBtnClickedDemoAsk" class="bg-box padding">
+        <div class="row">
+          <div class="col col-20"><img src="img/mic.svg" style="height: 54px; width: 54px;"></div>
+          <div class="col col-80"><h1>Tired of typing on your phone?</h1></div>
+        </div>
+        <div class="gray-info">
+          <p>
+            Finally: a question and answer site that lets you actually ask your question, instead of fixing typos on your device.  Use the microphone
+            <a class="button icon ion-mic-a button-positive" style="transform: scale(0.5, 0.5); margin-top: -14px; margin-left: -10px; margin-right: -10px;width:16px;"></a> button to give it a go.
+          </p>
+          <p>(No need to worry about privacy.  Other people here will only be able to see the text of what you said, not hear your voice.)</p>
+          <p>If you want to type your question, you can still do that.</p>
+        </div>
+        <div style="text-align: center">
+          <a ng-click="closeBtnClickDemoAsk()" href="#">Ok, got it.</a>
+        </div>
+      </div>
+      
+		</div>
+	</ion-content>
+</ion-view>

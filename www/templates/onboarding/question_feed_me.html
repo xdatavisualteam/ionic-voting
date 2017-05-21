@@ -1,0 +1,198 @@
+﻿<ion-view title="Question Feed" ng-controller="OnboardingCtrl">
+  <ion-content class="padding">
+
+    <div class="padding">
+      <h2>Questions recommended for me</h2>
+    </div>
+    <div ng-show="registered == 'false' && !question_feed_dlg_closed" class="ques_feed_dlg">
+      <div style="border: solid 1px #e2e2e2; padding: 5px 5px 5px 5px">
+        <ion-slide-box on-slide-changed="slideChangedQuesFeedDlg(index)" ng-init="disableSwipe()">
+          <ion-slide>
+            <div style="font-size: 19px; padding-top: 5px; padding-bottom: 8px;">
+              Hi, JumpingReptile!
+            </div>
+            <div style="padding-bottom: 10px;">
+              Questions for everyone are shown below.  Tell us a little about yourself to find questions that our community really wants people like you to answer.<br><br>
+              If you <a href="#/onboarding/fb1" style="text-decoration: none;">sign up via Facebook</a>, you'll be able to change this temporary username (without having to worry about a password!).  You'll also be able to also follow <a href="#/onboarding/topics_list" style="text-decoration: none;">topics</a> to make your question feed more interesting.
+            </div>
+            <div style="padding-top: 10px; padding-bottom: 10px;" align="center">
+              <a class="button button-positive" style="line-height: inherit;" ng-click="skip()">
+                <span style="font-family:'Arial Regular', 'Arial';font-weight:400;">Start seeing more questions <br>for you ➡</span>
+              </a>
+            </div>
+          </ion-slide>
+          <ion-slide>
+            <div>
+              <div class="step4">&nbsp;<br>&nbsp;1. Country</div>
+              <div class="step7">&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2. Gender</div>
+              <div class="step8">&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3. More</div>
+            </div>
+            <div style="padding-top: 10px; padding-bottom: 10px;">
+              Choose the country where you currently live.
+            </div>
+            <div class="button-bar">
+              <a ng-class="{'activatedBtn': country.curSel == 'USA'}" class="button button-outline button-dark item item-icon-bottom" ng-click="selCountry('USA')">
+                <p>USA</p>
+              </a>
+              <a ng-class="{'activatedBtn': country.curSel == 'Canada'}" class="button button-outline button-dark item item-icon-bottom" ng-click="selCountry('Canada')">
+                <p>Canada</p>
+              </a>
+            </div>
+            <div align="center" style="padding: 10px;">
+              <a class="button button-positive" style="line-height: inherit;" ng-click="skip()">
+                <span style="font-family:'Arial Regular', 'Arial';font-weight:400;">See questions for people in <br>your country ➡</span>
+              </a>
+            </div>
+          </ion-slide>
+          <ion-slide>
+            <div>
+              <div class="step9">&nbsp;<br>&nbsp;1. Country</div>
+              <div class="step10">&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2. Gender</div>
+              <div class="step11">&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3. More</div>
+            </div>
+            <div style="padding-top: 10px; padding-bottom: 10px;">
+              Choose your gender.
+            </div>
+            <div class="button-bar">
+              <a ng-class="{'activatedBtn': gender.curSel == 'male'}" class="button button-outline button-dark item item-icon-bottom" ng-click="selGender('male')">
+                <p>Male</p>
+              </a>
+              <a ng-class="{'activatedBtn': gender.curSel == 'female'}" class="button button-outline button-dark item item-icon-bottom" ng-click="selGender('female')">
+                <p>Female</p>
+              </a>
+              <a ng-class="{'activatedBtn': gender.curSel == 'other'}" class="button button-outline button-dark item item-icon-bottom" ng-click="selGender('other')">
+                <p>Other</p>
+              </a>
+            </div>
+            <div align="center" style="padding: 10px;">
+              <a class="button button-positive" style="line-height: inherit;" ng-click="skip()">
+                <span style="font-family:'Arial Regular', 'Arial';font-weight:400;">See questions for people <br>like you ➡</span>
+              </a>
+            </div>
+          </ion-slide>
+          <ion-slide>
+            <div>
+              <div class="step12">&nbsp;<br>&nbsp;1. Country</div>
+              <div class="step13">&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2. Gender</div>
+              <div class="step14">&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3. More</div>
+            </div>
+            <div style="padding-top: 10px; padding-bottom: 10px;">
+              Choose your gender.
+            </div>
+            <div>
+              Since you already have a temporary username, you may vote and ask questions without having to officially sign up.<br><br>
+              If you finish signing up, you'll get:<br><br>
+              • Easier access to your questions and answers<br>
+              • A feed of questions that is more customized to you<br>
+              • Ability to filter responses based on any other demographics you provide<br>
+              • Ability to comment on questions and answers<br><br>
+              You can also tell us what topics you know about in your work and hobbies.  And even with your Facebook account connected, you can still make your questions and answers anonymous.
+            </div>
+            <div align="center" style="padding: 10px;">
+              <a class="button button-positive" style="" ng-click="">
+                <span style="font-family:'Arial Regular', 'Arial';font-weight:400;">f  Connect with Facebook</span>
+              </a>
+            </div>
+          </ion-slide>
+        </ion-slide-box>
+        <div class="no_dup" ng-click="quesFeedDlgClose()">
+          close
+        </div>
+      </div>
+    </div>
+
+    <div style="display:table;width: 100%;">
+      <div class="row" style="width: 100px;float: right;">
+        <div class="col">
+          <a class="button button-outline button-small button-stable item item-icon-bottom">
+            <i class="fa fa-street-view" style="font-size: 22px;"></i>
+          </a>
+          <a class="button button-outline button-small button-stable item item-icon-bottom">
+            <i class="fa fa-heartbeat" style="font-size: 22px;"></i>
+          </a>
+          <a class="button button-outline button-small button-stable item item-icon-bottom">
+            <i class="fa fa-user-secret" style="font-size: 22px;"></i>
+          </a>
+          <a class="button button-outline button-small button-stable item item-icon-bottom">
+            <i class="fa fa-trophy" style="font-size: 22px;"></i>
+          </a>
+        </div>
+        <div class="col">
+          <a class="button button-outline button-small button-stable item item-icon-bottom">
+            <i class="fa fa-camera" style="font-size: 22px;"></i>
+          </a>
+          <a class="button button-outline button-small button-stable item item-icon-bottom">
+            <i class="fa fa-user-md" style="font-size: 22px;"></i>
+          </a>
+          <a class="button button-outline button-small button-stable item item-icon-bottom">
+            <i class="fa fa-cutlery" style="font-size: 22px;"></i>
+          </a>
+          <a class="button button-outline button-small button-stable item item-icon-bottom">
+            <i class="fa fa-flask" style="font-size: 22px;"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+    <ion-list>
+      <ion-item data-ng-repeat="q in filteredQuestionsForMe track by $index" style="padding:0px;margin:10px 0px 10px 0px;" class="question-item">
+        <div class="row" style="padding:8px;">
+          <div class="col" style="flex:none;width:60px;display:flex;align-items:center"><div class="topic-bg-{{q.category}}" style="height:42px;width:42px;margin-bottom: 4px"></div> </div>
+          <div class="col item-text-wrap">
+            <a href="#/answering/{{q.id}}" class="question-list"><i>{{q.q}}</i></a>
+            <br />
+            <div class="row" style="padding:0px;font-family:VarelaRoundRegular;font-size:10pt;">
+              <div class="col" style="padding: 8px 0px 0px;">
+                in
+                <a href="#/question_feed_for_topic?topic={{q.category}}" style="text-decoration:none;color:inherit">
+                  <i style="text-transform: capitalize;" class="topic-text-{{q.category}}">{{q.category}}</i>
+                </a>
+              </div>
+              <div class="col gray-info" style="padding: 8px 0px 0px;">{{q.posted}} ago</div>
+            </div>
+            <div class="gray-info" style="line-height: 10pt; padding-top: 8px;">{{q.recommend_reason}}</div>
+          </div>
+        </div>
+      </ion-item>
+
+      <!--<ion-item ng-repeat="ques in filteredQuestionsForMe track by $index" class="feed-item">
+        <div class="row">
+          <div class="col col-20"><img src="img/fb-1.png" width="50"></div>
+          <div class="col col-80">
+            in <a href="#/question_feed_for_topic?topic={{ques.category}}" style="text-decoration:none;color:inherit"><i style="text-transform: uppercase; font-weight: bold;">{{ques.category}}</i></a>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col col-20">&nbsp;</div>
+          <div class="col col-80">
+            <div><a href="#/answering/{{ques.id}}" style="text-decoration:none;color:inherit;font-size: 20px;">{{ques.q}}</a></div>
+            <div class="row" style="font-size: 13px;">
+              <div class="col col-60" ng-if="ques.asker">by <a style="text-decoration: none;">{{ques.asker}}</a></div>
+              <div class="col col-60" ng-if="!ques.asker">(anonymous)</div>
+              <div class="col col-40">{{ques.posted}} ago</div>
+            </div>
+            <div style="font-style: italic;">{{ques.recommend_reason}}</div>
+          </div>
+        </div>
+      </ion-item>-->
+
+    </ion-list>
+    <ion-infinite-scroll distance="2"
+                         on-infinite="loadMoreData()"></ion-infinite-scroll>
+  </ion-content>
+</ion-view>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

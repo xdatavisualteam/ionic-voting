@@ -1,0 +1,604 @@
+<ion-view title="Profile Picture and Demographics" ng-controller="OnboardingCtrl">
+  <ion-content class="padding">
+    <div class="row" style="padding: 0px; margin-left: -5px;">
+      <div class="col step1">✔ Avatar</div>
+      <div class="col step2">About You</div>
+      <div class="col step3">Topics</div>
+    </div>
+    <div style="padding-top: 5px;">
+      <progress max="100" ng-value="40"></progress>
+      40% complete
+    </div>
+    <div style="text-align: center; padding-top: 20px; padding-bottom: 20px; font-size: 22px; font-weight: bold;">
+      Get more accurate answers for yourself and others
+    </div>
+    <div>
+      <p>
+        <b>Information you provide here will never be displayed to anyone else.</b> It is only used in results filtering when there are at least 10 people with the same info.
+      </p>
+
+      <p>
+        For any information you provide, you can filter responses or recommend your questions to other members based on that information.
+      </p>
+
+      <p>
+        Feel free to skip anything you do not want to provide now. You can update your info later in your profile page.
+      </p>
+    </div>
+    <div style="padding-top: 5px;">
+      <progress max="9" value="{{slideIndex+1}}"></progress>
+      {{slideIndex+1}} of 9
+    </div>
+    <div class="demographics_collection">
+      <ion-slide-box on-slide-changed="slideChanged(index)" ng-init="disableSwipe()">
+
+        <ion-slide>
+          <div style="text-align: center; font-weight: bold;">
+            Gender
+          </div>
+          <div style="padding-top: 10px;">
+            <div class="button-bar">
+              <a ng-class="{'activatedBtn': gender.curSel == 'male'}" class="button button-outline button-dark item item-icon-bottom" ng-click="selGender('male')">
+                Male
+              </a>
+              <a ng-class="{'activatedBtn': gender.curSel == 'female'}" class="button button-outline button-dark item item-icon-bottom" ng-click="selGender('female')">
+                Female
+              </a>
+              <a ng-class="{'activatedBtn': gender.curSel == 'other'}" class="button button-outline button-dark item item-icon-bottom" ng-click="selGender('other')">
+                Other
+              </a>
+            </div>
+          </div>
+
+          <div>  
+            <div style="padding-top: 20px" align="center">
+              <a class="button button-positive" ng-click="next()"><span style="font-family:'Arial Regular', 'Arial';font-weight:400;" >{{nextStr}} ➡</span></a>
+            </div>
+            <div class="row">
+              <div class="col col-50" align="left">
+                <div ng-click="previous()" ng-show="slideIndex > 0" style="color: #2F83D0;">Back</div>
+              </div>
+              <div class="col col-50" align="right">
+                <div ng-click="skip()" ng-show="slideIndex < 8" style="color: #2F83D0;">Skip</div>
+              </div>
+            </div>
+          </div>
+        </ion-slide>
+
+        <ion-slide>
+          <div style="text-align: center; font-weight: bold;">
+            Age
+          </div>
+          <div style="padding-top: 10px;" align="center">
+            Please enter your birthday: <input type="date" ng-model="birthday.value" ng-change="onBirthdayChange()" />
+          </div>
+
+          <div>  
+            <div style="padding-top: 20px" align="center">
+              <a class="button button-positive" ng-click="next()"><span style="font-family:'Arial Regular', 'Arial';font-weight:400;" >{{nextStr}} ➡</span></a>
+            </div>
+            <div class="row">
+              <div class="col col-50" align="left">
+                <div ng-click="previous()" ng-show="slideIndex > 0" style="color: #2F83D0;">Back</div>
+              </div>
+              <div class="col col-50" align="right">
+                <div ng-click="skip()" ng-show="slideIndex < 8" style="color: #2F83D0;">Skip</div>
+              </div>
+            </div>
+          </div>
+        </ion-slide>
+
+        <ion-slide>
+          <div style="text-align: center; font-weight: bold;">
+            Country
+          </div>
+          <div style="padding-bottom: 10px; padding-top: 10px;">
+            Please enter the country where you currently live.
+          </div>
+          <div class="button-bar">
+            <a ng-class="{'activatedBtn': country.curSel == 'USA'}" class="button button-outline button-dark item item-icon-bottom" ng-click="selCountry('USA')">
+              USA
+            </a>
+            <a ng-class="{'activatedBtn': country.curSel == 'Canada'}" class="button button-outline button-dark item item-icon-bottom" ng-click="selCountry('Canada')">
+              Canada
+            </a>
+          </div>
+
+          <div>  
+            <div style="padding-top: 20px" align="center">
+              <a class="button button-positive" ng-click="next()"><span style="font-family:'Arial Regular', 'Arial';font-weight:400;" >{{nextStr}} ➡</span></a>
+            </div>
+            <div class="row">
+              <div class="col col-50" align="left">
+                <div ng-click="previous()" ng-show="slideIndex > 0" style="color: #2F83D0;">Back</div>
+              </div>
+              <div class="col col-50" align="right">
+                <div ng-click="skip()" ng-show="slideIndex < 8" style="color: #2F83D0;">Skip</div>
+              </div>
+            </div>
+          </div>
+        </ion-slide>
+
+        <ion-slide>
+          <div style="text-align: center; font-weight: bold;">
+            Location
+          </div>
+          <div style="padding-bottom: 5px; padding-top: 5px;">
+            You can filter responses by regions (within the US or Canada), US states, Canadian provinces, or cities. 
+          </div>
+          <div style="padding-top: 5px;">
+            City
+          </div>
+          <div class="padding">
+            <label class="item item-input">
+              <input type="text" placeholder="Enter your city..." ng-model="location.city" ng-change="onLocationChange()">
+            </label>
+          </div>
+          <div style="padding-top: 5px;">
+            State or province
+          </div>
+          <div class="padding">
+            <label class="item item-input">
+              <input type="text" placeholder="Enter your state or province..." ng-model="location.state" ng-change="onLocationChange()">
+            </label>
+          </div>
+          <div style="padding-top: 5px;">
+            ZIP or postal code
+          </div>
+          <div class="padding">
+            <label class="item item-input">
+              <input type="text" placeholder="" ng-model="location.zip" ng-change="onLocationChange()">
+            </label>
+          </div>
+
+          <div>  
+            <div style="padding-top: 20px" align="center">
+              <a class="button button-positive" ng-click="next()"><span style="font-family:'Arial Regular', 'Arial';font-weight:400;" >{{nextStr}} ➡</span></a>
+            </div>
+            <div class="row">
+              <div class="col col-50" align="left">
+                <div ng-click="previous()" ng-show="slideIndex > 0" style="color: #2F83D0;">Back</div>
+              </div>
+              <div class="col col-50" align="right">
+                <div ng-click="skip()" ng-show="slideIndex < 8" style="color: #2F83D0;">Skip</div>
+              </div>
+            </div>
+          </div>
+        </ion-slide>
+
+        <ion-slide>
+          <div style="text-align: center; font-weight: bold;">
+            Ethnicity
+          </div>
+          <div style="padding-bottom: 10px; padding-top: 10px;">
+            Select all that apply.
+          </div>
+          <div class="button-bar">
+            <a ng-class="{'activatedBtn': ethnicity.asian}" class="button button-outline button-dark item item-icon-bottom" ng-click="selEthnicity('asian')">
+              Asian
+            </a>
+            <a ng-class="{'activatedBtn': ethnicity.black}" class="button button-outline button-dark item item-icon-bottom" ng-click="selEthnicity('black')">
+              Black
+            </a>
+            <a ng-class="{'activatedBtn': ethnicity.lat_his}" class="button button-outline button-dark item item-icon-bottom" ng-click="selEthnicity('lat_his')">
+              Latino / Hispanic
+            </a>
+          </div>
+          <div style="padding:2px;"></div>
+          <div class="button-bar">
+            <a ng-class="{'activatedBtn': ethnicity.mid_eas}" class="button button-outline button-dark item item-icon-bottom" ng-click="selEthnicity('mid_eas')">
+              Middle Eastern
+            </a>
+            <a ng-class="{'activatedBtn': ethnicity.native}" class="button button-outline button-dark item item-icon-bottom" ng-click="selEthnicity('native')">
+              Native American / First Nations
+            </a>
+            <a ng-class="{'activatedBtn': ethnicity.pacific}" class="button button-outline button-dark item item-icon-bottom" ng-click="selEthnicity('pacific')">
+              Pacific Islander
+            </a>
+          </div>
+          <div style="padding:2px;"></div>
+          <div class="button-bar">
+            <a ng-class="{'activatedBtn': ethnicity.white}" class="button button-outline button-dark item item-icon-bottom" ng-click="selEthnicity('white')">
+              White
+            </a>
+            <a ng-class="{'activatedBtn': ethnicity.other}" class="button button-outline button-dark item item-icon-bottom" ng-click="selEthnicity('other')">
+              Other
+            </a>
+            <div class="empty-dialog-cell"></div>
+          </div>
+
+          <div>  
+            <div style="padding-top: 20px" align="center">
+              <a class="button button-positive" ng-click="next()"><span style="font-family:'Arial Regular', 'Arial';font-weight:400;" >{{nextStr}} ➡</span></a>
+            </div>
+            <div class="row">
+              <div class="col col-50" align="left">
+                <div ng-click="previous()" ng-show="slideIndex > 0" style="color: #2F83D0;">Back</div>
+              </div>
+              <div class="col col-50" align="right">
+                <div ng-click="skip()" ng-show="slideIndex < 8" style="color: #2F83D0;">Skip</div>
+              </div>
+            </div>
+          </div>
+        </ion-slide>
+
+        <ion-slide>
+          <div style="text-align: center; font-weight: bold;">
+            Occupation
+          </div>
+          <div class="padding">
+            <label class="item item-input">
+              <input type="text" placeholder="Your Occupation..." ng-model="occupation.value" ng-change="onOccupationChange()">
+            </label>
+          </div>          
+
+          <div>  
+            <div style="padding-top: 20px" align="center">
+              <a class="button button-positive" ng-click="next()"><span style="font-family:'Arial Regular', 'Arial';font-weight:400;" >{{nextStr}} ➡</span></a>
+            </div>
+            <div class="row">
+              <div class="col col-50" align="left">
+                <div ng-click="previous()" ng-show="slideIndex > 0" style="color: #2F83D0;">Back</div>
+              </div>
+              <div class="col col-50" align="right">
+                <div ng-click="skip()" ng-show="slideIndex < 8" style="color: #2F83D0;">Skip</div>
+              </div>
+            </div>
+          </div>
+        </ion-slide>
+
+        <ion-slide>
+          <div style="text-align: center; font-weight: bold;">
+            Relationship status
+          </div>
+          <div style="padding-top: 10px;">
+            <div class="button-bar">
+              <a ng-class="{'activatedBtn': relationship.curSel == 'single'}" class="button button-outline button-dark item item-icon-bottom" ng-click="selRelationship('single')">
+                Single
+              </a>
+              <a ng-class="{'activatedBtn': relationship.curSel == 'in'}" class="button button-outline button-dark item item-icon-bottom" ng-click="selRelationship('in')">
+                In a relationship
+              </a>
+              <a ng-class="{'activatedBtn': relationship.curSel == 'married'}" class="button button-outline button-dark item item-icon-bottom" ng-click="selRelationship('married')">
+                Married
+              </a>
+            </div>
+            <div style="padding:2px;"></div>
+            <div class="button-bar">
+              <a ng-class="{'activatedBtn': relationship.curSel == 'widowed'}" class="button button-outline button-dark item item-icon-bottom" ng-click="selRelationship('widowed')">
+                Widowed
+              </a>
+              <a ng-class="{'activatedBtn': relationship.curSel == 'divorced'}" class="button button-outline button-dark item item-icon-bottom" ng-click="selRelationship('divorced')">
+                Divorced
+              </a>
+              <a ng-class="{'activatedBtn': relationship.curSel == 'do_ci'}" class="button button-outline button-dark item item-icon-bottom" ng-click="selRelationship('do_ci')">
+                Domestic partnership / civil union
+              </a>
+            </div>
+          </div>
+
+          <div>  
+            <div style="padding-top: 20px" align="center">
+              <a class="button button-positive" ng-click="next()"><span style="font-family:'Arial Regular', 'Arial';font-weight:400;" >{{nextStr}} ➡</span></a>
+            </div>
+            <div class="row">
+              <div class="col col-50" align="left">
+                <div ng-click="previous()" ng-show="slideIndex > 0" style="color: #2F83D0;">Back</div>
+              </div>
+              <div class="col col-50" align="right">
+                <div ng-click="skip()" ng-show="slideIndex < 8" style="color: #2F83D0;">Skip</div>
+              </div>
+            </div>
+          </div>
+        </ion-slide>
+
+        <ion-slide>
+          <div style="text-align: center; font-weight: bold;">
+            Household formation
+          </div>
+          <div style="padding-bottom: 10px; padding-top: 10px;">
+            Who lives with you in your current household.
+          </div>
+          <div style="padding-top: 10px;">
+            <div class="button-bar">
+              <a ng-class="{'activatedBtn': household.curSel == 'alone'}" class="button button-outline button-dark item item-icon-bottom" ng-click="selHousehold('alone')">
+                Living alone
+              </a>
+              <a ng-class="{'activatedBtn': household.curSel == 'parents'}" class="button button-outline button-dark item item-icon-bottom" ng-click="selHousehold('parents')">
+                With parent(s)
+              </a>
+              <a ng-class="{'activatedBtn': household.curSel == 'roommate'}" class="button button-outline button-dark item item-icon-bottom" ng-click="selHousehold('roommate')">
+                With roommate(s)
+              </a>
+            </div>
+            <div style="padding:2px;"></div>
+            <div class="button-bar">
+              <a ng-class="{'activatedBtn': household.curSel == 'partner'}" class="button button-outline button-dark item item-icon-bottom" ng-click="selHousehold('partner')">
+                With partner/spouse, no children
+              </a>
+              <a ng-class="{'activatedBtn': household.curSel == 'children'}" class="button button-outline button-dark item item-icon-bottom" ng-click="selHousehold('children')">
+                With children
+              </a>
+              <a ng-class="{'activatedBtn': household.curSel == 'multi'}" class="button button-outline button-dark item item-icon-bottom" ng-click="selHousehold('multi')">
+                Multi-generational household
+              </a>
+            </div>
+          </div>
+
+          <div>  
+            <div style="padding-top: 20px" align="center">
+              <a class="button button-positive" ng-click="next()"><span style="font-family:'Arial Regular', 'Arial';font-weight:400;" >{{nextStr}} ➡</span></a>
+            </div>
+            <div class="row">
+              <div class="col col-50" align="left">
+                <div ng-click="previous()" ng-show="slideIndex > 0" style="color: #2F83D0;">Back</div>
+              </div>
+              <div class="col col-50" align="right">
+                <div ng-click="skip()" ng-show="slideIndex < 8" style="color: #2F83D0;">Skip</div>
+              </div>
+            </div>
+          </div>
+        </ion-slide>
+
+        <!-- <ion-slide>
+          <div style="text-align: center; font-weight: bold;">
+            Birthdate
+          </div>
+          <div style="padding-bottom: 10px; padding-top: 10px;">
+            Your birthdate can't be seen by others, but it lets us calculate your age so that you and other users can filter responses for your age group.
+          </div>
+          <div align="center"><input type='date' ng-model='birthday' style="border: solid 1px #e2e2e2;"></div>
+
+          <div>  
+            <div style="padding-top: 20px" align="center">
+              <a class="button button-positive" ng-click="next()"><span style="font-family:'Arial Regular', 'Arial';font-weight:400;" >{{nextStr}} ➡</span></a>
+            </div>
+            <div class="row">
+              <div class="col col-50" align="left">
+                <div ng-click="previous()" ng-show="slideIndex > 0" style="color: #2F83D0;">Back</div>
+              </div>
+              <div class="col col-50" align="right">
+                <div ng-click="skip()" ng-show="slideIndex < 10" style="color: #2F83D0;">Skip</div>
+              </div>
+            </div>
+          </div>
+        </ion-slide>
+        <ion-slide>
+          <div style="text-align: center; font-weight: bold;">
+            Children
+          </div>
+          <div style="padding-top: 10px;">Please enter the number of children you have now.</div>
+          <div style="padding-top: 10px;">
+            <div class="button-bar">
+              <a ng-class="{'activatedBtn': children.curSel == 'none'}" class="button button-outline button-dark item item-icon-bottom" ng-click="selChildren('none')">
+                <p>None</p>
+              </a>
+              <a ng-class="{'activatedBtn': children.curSel == 'one'}" class="button button-outline button-dark item item-icon-bottom" ng-click="selChildren('one')">
+                <p>1</p>
+              </a>
+              <a ng-class="{'activatedBtn': children.curSel == 'two'}" class="button button-outline button-dark item item-icon-bottom" ng-click="selChildren('two')">
+                <p>2</p>
+              </a>
+            </div>
+            <div class="button-bar">
+              <a ng-class="{'activatedBtn': children.curSel == 'three'}" class="button button-outline button-dark item item-icon-bottom" ng-click="selChildren('three')">
+                <p>3</p>
+              </a>
+              <a ng-class="{'activatedBtn': children.curSel == 'overfour'}" class="button button-outline button-dark item item-icon-bottom" ng-click="selChildren('overfour')">
+                <p>4+</p>
+              </a>
+            </div>
+          </div>
+
+          <div>  
+            <div style="padding-top: 20px" align="center">
+              <a class="button button-positive" ng-click="next()"><span style="font-family:'Arial Regular', 'Arial';font-weight:400;" >{{nextStr}} ➡</span></a>
+            </div>
+            <div class="row">
+              <div class="col col-50" align="left">
+                <div ng-click="previous()" ng-show="slideIndex > 0" style="color: #2F83D0;">Back</div>
+              </div>
+              <div class="col col-50" align="right">
+                <div ng-click="skip()" ng-show="slideIndex < 10" style="color: #2F83D0;">Skip</div>
+              </div>
+            </div>
+          </div>
+        </ion-slide>
+        <ion-slide>
+          <div style="text-align: center; font-weight: bold;">
+            Religion
+          </div>
+          <div style="padding-bottom: 12px">
+            <div class="button-bar">
+              <a ng-class="{'activatedBtn': religion.curSel == 'pro'}" class="button button-outline button-dark item item-icon-bottom" ng-click="selReligion('pro')">
+                <p>Protestant</p>
+              </a>
+              <a ng-class="{'activatedBtn': religion.curSel == 'ro_ca'}" class="button button-outline button-dark item item-icon-bottom" ng-click="selReligion('ro_ca')">
+                <p>Roman Catholic</p>
+              </a>
+              <a ng-class="{'activatedBtn': religion.curSel == 'mormon'}" class="button button-outline button-dark item item-icon-bottom" ng-click="selReligion('mormon')">
+                <p>Mormon</p>
+              </a>
+            </div>
+            <div class="button-bar">
+              <a ng-class="{'activatedBtn': religion.curSel == 'ch_other'}" class="button button-outline button-dark item item-icon-bottom" ng-click="selReligion('ch_other')">
+                <p>Christian - Other</p>
+              </a>
+              <a ng-class="{'activatedBtn': religion.curSel == 'jewish'}" class="button button-outline button-dark item item-icon-bottom" ng-click="selReligion('jewish')">
+                <p>Jewish</p>
+              </a>
+              <a ng-class="{'activatedBtn': religion.curSel == 'muslim'}" class="button button-outline button-dark item item-icon-bottom" ng-click="selReligion('muslim')">
+                <p>Muslim</p>
+              </a>
+            </div>
+            <div class="button-bar">
+              <a ng-class="{'activatedBtn': religion.curSel == 'hindu'}" class="button button-outline button-dark item item-icon-bottom" ng-click="selReligion('hindu')">
+                <p>Hindu</p>
+              </a>
+              <a ng-class="{'activatedBtn': religion.curSel == 'sikh'}" class="button button-outline button-dark item item-icon-bottom" ng-click="selReligion('sikh')">
+                <p>Sikh</p>
+              </a>
+            </div>
+            <div class="button-bar">
+              <a ng-class="{'activatedBtn': religion.curSel == 'buddhist'}" class="button button-outline button-dark item item-icon-bottom" ng-click="selReligion('buddhist')">
+                <p>Buddhist</p>
+              </a>
+              <a ng-class="{'activatedBtn': religion.curSel == 'taoist'}" class="button button-outline button-dark item item-icon-bottom" ng-click="selReligion('taoist')">
+                <p>Taoist</p>
+              </a>
+              <a ng-class="{'activatedBtn': religion.curSel == 'other'}" class="button button-outline button-dark item item-icon-bottom" ng-click="selReligion('other')">
+                <p>Other religion</p>
+              </a>
+            </div>
+            <div class="button-bar">
+              <a ng-class="{'activatedBtn': religion.curSel == 'atheist'}" class="button button-outline button-dark item item-icon-bottom" ng-click="selReligion('atheist')">
+                <p>Atheist</p>
+              </a>
+              <a ng-class="{'activatedBtn': religion.curSel == 'agnostic'}" class="button button-outline button-dark item item-icon-bottom" ng-click="selReligion('agnostic')">
+                <p>Agnostic</p>
+              </a>
+              <a ng-class="{'activatedBtn': religion.curSel == 'other_non'}" class="button button-outline button-dark item item-icon-bottom" ng-click="selReligion('other_non')">
+                <p>Other Non-religious</p>
+              </a>
+            </div>
+          </div>
+
+          <div>  
+            <div style="padding-top: 20px" align="center">
+              <a class="button button-positive" ng-click="next()"><span style="font-family:'Arial Regular', 'Arial';font-weight:400;" >{{nextStr}} ➡</span></a>
+            </div>
+            <div class="row">
+              <div class="col col-50" align="left">
+                <div ng-click="previous()" ng-show="slideIndex > 0" style="color: #2F83D0;">Back</div>
+              </div>
+              <div class="col col-50" align="right">
+                <div ng-click="skip()" ng-show="slideIndex < 10" style="color: #2F83D0;">Skip</div>
+              </div>
+            </div>
+          </div>
+        </ion-slide> -->
+
+        <ion-slide>
+          <div style="text-align: center; font-weight: bold;">
+            Political view
+          </div>
+          <div style="padding-top: 12px">
+            <div class="button-bar">
+              <a ng-class="{'activatedBtn': political.curSel == 'very'}" class="button button-outline button-dark item item-icon-bottom" ng-click="selPolitical('very')">
+                Very Liberal
+              </a>
+              <a ng-class="{'activatedBtn': political.curSel == 'somewhat'}" class="button button-outline button-dark item item-icon-bottom" ng-click="selPolitical('somewhat')">
+                Somewhat Liberal
+              </a>
+              <a ng-class="{'activatedBtn': political.curSel == 'mo_ce'}" class="button button-outline button-dark item item-icon-bottom" ng-click="selPolitical('mo_ce')">
+                Moderate / Centrist
+              </a>
+            </div>
+            <div style="padding:2px;"></div>
+            <div class="button-bar">
+              <a ng-class="{'activatedBtn': political.curSel == 'some_con'}" class="button button-outline button-dark item item-icon-bottom" ng-click="selPolitical('some_con')">
+                Somewhat Conservative
+              </a>
+              <a ng-class="{'activatedBtn': political.curSel == 've_con'}" class="button button-outline button-dark item item-icon-bottom" ng-click="selPolitical('ve_con')">
+                Very Conservative
+              </a>
+              <a ng-class="{'activatedBtn': political.curSel == 'lib'}" class="button button-outline button-dark item item-icon-bottom" ng-click="selPolitical('lib')">
+                Libertarian
+              </a>
+            </div>
+            <div style="padding:2px;"></div>
+            <div class="button-bar">
+              <a ng-class="{'activatedBtn': political.curSel == 'soc'}" class="button button-outline button-dark item item-icon-bottom" ng-click="selPolitical('soc')">
+                Socialist
+              </a>
+              <a ng-class="{'activatedBtn': political.curSel == 'green'}" class="button button-outline button-dark item item-icon-bottom" ng-click="selPolitical('green')">
+                Green
+              </a>
+              <a ng-class="{'activatedBtn': political.curSel == 'ind'}" class="button button-outline button-dark item item-icon-bottom" ng-click="selPolitical('ind')">
+                Independent
+              </a>
+            </div>
+            <div style="padding:2px;"></div>
+            <div class="button-bar">
+              <a ng-class="{'activatedBtn': political.curSel == 'other'}" class="button button-outline button-dark item item-icon-bottom" ng-click="selPolitical('other')">
+                Other
+              </a>
+              <div class="empty-dialog-cell"></div>
+              <div class="empty-dialog-cell" style="border-left: 0px"></div>
+            </div>
+          </div>
+
+          <div>  
+            <div style="padding-top: 20px" align="center">
+              <a class="button button-positive" ng-click="next()"><span style="font-family:'Arial Regular', 'Arial';font-weight:400;" >{{nextStr}} ➡</span></a>
+            </div>
+            <div class="row">
+              <div class="col col-50" align="left">
+                <div ng-click="previous()" ng-show="slideIndex > 0" style="color: #2F83D0;">Back</div>
+              </div>
+              <div class="col col-50" align="right">
+                <div ng-click="skip()" ng-show="slideIndex < 8" style="color: #2F83D0;">Skip</div>
+              </div>
+            </div>
+          </div>
+        </ion-slide>
+
+        <!-- <ion-slide>
+          <div style="text-align: center; font-weight: bold;">
+            Income
+          </div>
+          <div style="padding-top: 12px">
+            <div class="button-bar">
+              <a ng-class="{'activatedBtn': income.curSel == 'not_say'}" class="button button-outline button-dark item item-icon-bottom" ng-click="selIncome('not_say')">
+                <p>I'd rather not say</p>
+              </a>
+              <a ng-class="{'activatedBtn': income.curSel == 'under20'}" class="button button-outline button-dark item item-icon-bottom" ng-click="selIncome('under20')">
+                <p>Under $20,000</p>
+              </a>
+              <a ng-class="{'activatedBtn': income.curSel == 'under35'}" class="button button-outline button-dark item item-icon-bottom" ng-click="selIncome('under35')">
+                <p>$20,000 - $35,000</p>
+              </a>
+            </div>
+            <div class="button-bar">
+              <a ng-class="{'activatedBtn': income.curSel == 'under50'}" class="button button-outline button-dark item item-icon-bottom" ng-click="selIncome('under50')">
+                <p>$35,000 - $50,000</p>
+              </a>
+              <a ng-class="{'activatedBtn': income.curSel == 'under75'}" class="button button-outline button-dark item item-icon-bottom" ng-click="selIncome('under75')">
+                <p>$50,000 - $75,000</p>
+              </a>
+              <a ng-class="{'activatedBtn': income.curSel == 'under100'}" class="button button-outline button-dark item item-icon-bottom" ng-click="selIncome('under100')">
+                <p>$75,000 - $100,000</p>
+              </a>
+            </div>
+            <div class="button-bar">
+              <a ng-class="{'activatedBtn': income.curSel == 'under150'}" class="button button-outline button-dark item item-icon-bottom" ng-click="selIncome('under150')">
+                <p>$100,000 - $150,000</p>
+              </a>
+              <a ng-class="{'activatedBtn': income.curSel == 'under200'}" class="button button-outline button-dark item item-icon-bottom" ng-click="selIncome('under200')">
+                <p>$150,000 - $200,000</p>
+              </a>
+              <a ng-class="{'activatedBtn': income.curSel == 'over200'}" class="button button-outline button-dark item item-icon-bottom" ng-click="selIncome('over200')">
+                <p>Over $200,000</p>
+              </a>
+            </div>
+          </div>
+
+          <div>  
+            <div style="padding-top: 20px" align="center">
+              <a class="button button-positive" ng-click="next()"><span style="font-family:'Arial Regular', 'Arial';font-weight:400;" >{{nextStr}} ➡</span></a>
+            </div>
+            <div class="row">
+              <div class="col col-50" align="left">
+                <div ng-click="previous()" ng-show="slideIndex > 0" style="color: #2F83D0;">Back</div>
+              </div>
+              <div class="col col-50" align="right">
+                <div ng-click="skip()" ng-show="slideIndex < 10" style="color: #2F83D0;">Skip</div>
+              </div>
+            </div>
+          </div>
+        </ion-slide>
+         -->
+      </ion-slide-box>
+    </div>
+  </ion-content>
+</ion-view>

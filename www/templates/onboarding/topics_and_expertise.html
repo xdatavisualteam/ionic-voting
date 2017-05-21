@@ -1,0 +1,367 @@
+<ion-view title="Profile Picture and Demographics" ng-controller="OnboardingCtrl">
+  <ion-content class="padding">
+    <div class="row" style="padding: 0px; margin-left: -5px;">
+      <div class="col step1">✔ About You</div>
+      <div class="col step2">Topics</div>
+      <div class="col step3">Digest</div>
+    </div>
+    <div style="padding-top: 5px;">
+      <progress max="100" ng-value="60"></progress>
+      60% complete
+    </div>
+    <div style="text-align: center; padding-top: 20px; padding-bottom: 20px; font-size: 22px; font-weight: bold;">
+      Find interesting questions more easily
+    </div>
+    <div>
+      Any topic you follow will help us show you more interesting questions.  You can change the topics you follow at any time in your profile or the topics list.
+    </div>
+    <div class="padding">
+
+      <div class="item item-button-right ion-calculator" ng-click="selCate('tech', true)">
+        Technology
+        <button class="button button-positive" ng-click="followCate('tech');$event.stopPropagation();">
+          <div ng-if="!followdata.tech">Follow</div><div ng-if="followdata.tech">Following</div>
+        </button>
+        <button ng-if="followdata.tech && data.cate1" class="button button-calm" style="margin-right:110px">
+          {{toStars(data.cate1)}}
+        </button>
+      </div>
+      <div ng-if="data.tech && followdata.tech" style="padding-top: 10px;padding-bottom:10px;">
+        <div style="border: solid 1px #e2e2e2;">
+          <div style="text-align: center; font-weight: bold; padding-top: 10px; padding-bottom: 10px;">Are you an expert in this?</div>
+          <div style="padding: 10px;">
+            You can be one professionally or in your personal life.  Let us know so that we'll be able to tell our community what opinions both professionals and hobbyists have on their questions.
+          </div>
+          <div class="start-selection">
+            <ion-list>
+              <ion-radio ng-model="data.cate1" ng-value="'cate1_1'">☆☆☆☆☆ Just following this topic</ion-radio>
+              <ion-radio ng-model="data.cate1" ng-value="'cate1_2'">★☆☆☆☆ Regular hobby</ion-radio>
+              <ion-radio ng-model="data.cate1" ng-value="'cate1_3'">★★☆☆☆ Serious hobby</ion-radio>
+              <ion-radio ng-model="data.cate1" ng-value="'cate1_4'">★★★☆☆ Formal training or past work experience</ion-radio>
+              <ion-radio ng-model="data.cate1" ng-value="'cate1_5'">★★★★☆ Currently work in this field</ion-radio>
+              <ion-radio ng-model="data.cate1" ng-value="'cate1_6'">★★★★★ Distinguished professional</ion-radio>
+            </ion-list>
+          </div>
+          <div class="row">
+            <label class="item item-input-wrapper textarea-cls">
+              <textarea class="ask-detail" placeholder="Tell us a little more, if you'd like(required for 5-star ratings)" ng-model="data.rate1" ng-click="" ng-trim="false" maxlength="70" style="max-height:40px"></textarea>
+            </label>
+            <div class="col col-20">
+              <button class="button icon ion-mic-a button-positive" ng-click="recordQuestion(data.rate1)"></button>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col col-80 text-right">{{70 - data.rate1.length}}</div>
+          </div>
+          <div style="padding: 10px;">
+            Note: To make 4- and 5-star ratings more believable for everyone, there is a maximum limit of one 5-star and two 4-stars per person.
+          </div>
+          <div style="text-align: center; padding-bottom: 10px;">
+            <button class="button button-positive" ng-click="selCate('tech')">Save and close</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="item item-button-right ion-ios-basketball" ng-click="selCate('sport',true)">
+        Sports
+        <button class="button button-positive" ng-click="followCate('sport');$event.stopPropagation();">
+          <div ng-if="!followdata.sport">Follow</div><div ng-if="followdata.sport">Following</div>
+        </button>
+        <button ng-if="followdata.sport && data.cate2" class="button button-calm" style="margin-right:110px">
+          {{toStars(data.cate2)}}
+        </button>
+      </div>
+      <div ng-if="data.sport && followdata.sport" style="padding-top: 10px;padding-bottom:10px;">
+        <div style="border: solid 1px #e2e2e2;">
+          <div style="text-align: center; font-weight: bold; padding-top: 10px; padding-bottom: 10px;">Are you an expert in this?</div>
+          <div style="padding: 10px;">
+            You can be one professionally or in your personal life.  Let us know so that we'll be able to tell our community what opinions both professionals and hobbyists have on their questions.
+          </div>
+          <div class="start-selection">
+            <ion-list>
+              <ion-radio ng-model="data.cate2" ng-value="'cate2_1'">☆☆☆☆☆ Just following this topic</ion-radio>
+              <ion-radio ng-model="data.cate2" ng-value="'cate2_2'">★☆☆☆☆ Regular hobby</ion-radio>
+              <ion-radio ng-model="data.cate2" ng-value="'cate2_3'">★★☆☆☆ Serious hobby</ion-radio>
+              <ion-radio ng-model="data.cate2" ng-value="'cate2_4'">★★★☆☆ Formal training or past work experience</ion-radio>
+              <ion-radio ng-model="data.cate2" ng-value="'cate2_5'">★★★★☆ Currently work in this field</ion-radio>
+              <ion-radio ng-model="data.cate2" ng-value="'cate2_6'">★★★★★ Distinguished professional</ion-radio>
+            </ion-list>
+          </div>
+          <div class="row">
+            <label class="item item-input-wrapper textarea-cls">
+              <textarea class="ask-detail" placeholder="Tell us a little more, if you'd like(required for 5-star ratings)" ng-model="data.rate2" ng-click="" ng-trim="false" maxlength="70" style="max-height:40px"></textarea>
+            </label>
+            <div class="col col-20">
+              <button class="button icon ion-mic-a button-positive" ng-click="recordQuestion(data.rate2)"></button>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col col-80 text-right">{{70 - data.rate2.length}}</div>
+          </div>
+          <div style="padding: 10px;">
+            Note: To make 4- and 5-star ratings more believable for everyone, there is a maximum limit of one 5-star and two 4-stars per person.
+          </div>
+          <div style="text-align: center; padding-bottom: 10px;">
+            <button class="button button-positive" ng-click="selCate('sport')">Save and close</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="item item-button-right ion-videocamera" ng-click="selCate('tv',true)">
+        TV
+        <button class="button button-positive" ng-click="followCate('tv');$event.stopPropagation();">
+          <div ng-if="!followdata.tv">Follow</div><div ng-if="followdata.tv">Following</div>
+        </button>
+        <button ng-if="followdata.tv && data.cate3" class="button button-calm" style="margin-right:110px">
+          {{toStars(data.cate3)}}
+        </button>
+      </div>
+      <div ng-if="data.tv && followdata.tv" style="padding-top: 10px;padding-bottom:10px;">
+        <div style="border: solid 1px #e2e2e2;">
+          <div style="text-align: center; font-weight: bold; padding-top: 10px; padding-bottom: 10px;">Are you an expert in this?</div>
+          <div style="padding: 10px;">
+            You can be one professionally or in your personal life.  Let us know so that we'll be able to tell our community what opinions both professionals and hobbyists have on their questions.
+          </div>
+          <div class="start-selection">
+            <ion-list>
+              <ion-radio ng-model="data.cate3" ng-value="'cate3_1'">☆☆☆☆☆ Just following this topic</ion-radio>
+              <ion-radio ng-model="data.cate3" ng-value="'cate3_2'">★☆☆☆☆ Regular hobby</ion-radio>
+              <ion-radio ng-model="data.cate3" ng-value="'cate3_3'">★★☆☆☆ Serious hobby</ion-radio>
+              <ion-radio ng-model="data.cate3" ng-value="'cate3_4'">★★★☆☆ Formal training or past work experience</ion-radio>
+              <ion-radio ng-model="data.cate3" ng-value="'cate3_5'">★★★★☆ Currently work in this field</ion-radio>
+              <ion-radio ng-model="data.cate3" ng-value="'cate3_6'">★★★★★ Distinguished professional</ion-radio>
+            </ion-list>
+          </div>
+          <div class="row">
+            <label class="item item-input-wrapper textarea-cls">
+              <textarea class="ask-detail" placeholder="Tell us a little more, if you'd like(required for 5-star ratings)" ng-model="data.rate3" ng-click="" ng-trim="false" maxlength="70" style="max-height:40px"></textarea>
+            </label>
+            <div class="col col-20">
+              <button class="button icon ion-mic-a button-positive" ng-click="recordQuestion(data.rate3)"></button>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col col-80 text-right">{{70 - data.rate3.length}}</div>
+          </div>
+          <div style="padding: 10px;">
+            Note: To make 4- and 5-star ratings more believable for everyone, there is a maximum limit of one 5-star and two 4-stars per person.
+          </div>
+          <div style="text-align: center; padding-bottom: 10px;">
+            <button class="button button-positive" ng-click="selCate('tv')">Save and close</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="item item-button-right ion-ios-film" ng-click="selCate('movies',true)">
+        Movies
+        <button class="button button-positive" ng-click="followCate('movies');$event.stopPropagation();">
+          <div ng-if="!followdata.movies">Follow</div><div ng-if="followdata.movies">Following</div>
+        </button>
+        <button ng-if="followdata.movies && data.cate4" class="button button-calm" style="margin-right:110px">
+          {{toStars(data.cate4)}}
+        </button>
+      </div>
+      <div ng-if="data.movies && followdata.movies" style="padding-top: 10px;padding-bottom:10px;">
+        <div style="border: solid 1px #e2e2e2;">
+          <div style="text-align: center; font-weight: bold; padding-top: 10px; padding-bottom: 10px;">Are you an expert in this?</div>
+          <div style="padding: 10px;">
+            You can be one professionally or in your personal life.  Let us know so that we'll be able to tell our community what opinions both professionals and hobbyists have on their questions.
+          </div>
+          <div class="start-selection">
+            <ion-list>
+              <ion-radio ng-model="data.cate4" ng-value="'cate4_1'">☆☆☆☆☆ Just following this topic</ion-radio>
+              <ion-radio ng-model="data.cate4" ng-value="'cate4_2'">★☆☆☆☆ Regular hobby</ion-radio>
+              <ion-radio ng-model="data.cate4" ng-value="'cate4_3'">★★☆☆☆ Serious hobby</ion-radio>
+              <ion-radio ng-model="data.cate4" ng-value="'cate4_4'">★★★☆☆ Formal training or past work experience</ion-radio>
+              <ion-radio ng-model="data.cate4" ng-value="'cate4_5'">★★★★☆ Currently work in this field</ion-radio>
+              <ion-radio ng-model="data.cate4" ng-value="'cate4_6'">★★★★★ Distinguished professional</ion-radio>
+            </ion-list>
+          </div>
+          <div class="row">
+            <label class="item item-input-wrapper textarea-cls">
+              <textarea class="ask-detail" placeholder="Tell us a little more, if you'd like(required for 5-star ratings)" ng-model="data.rate4" ng-click="" ng-trim="false" maxlength="70" style="max-height:40px"></textarea>
+            </label>
+            <div class="col col-20">
+              <button class="button icon ion-mic-a button-positive" ng-click="recordQuestion(data.rate4)"></button>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col col-80 text-right">{{70 - data.rate4.length}}</div>
+          </div>
+          <div style="padding: 10px;">
+            Note: To make 4- and 5-star ratings more believable for everyone, there is a maximum limit of one 5-star and two 4-stars per person.
+          </div>
+          <div style="text-align: center; padding-bottom: 10px;">
+            <button class="button button-positive" ng-click="selCate('movies')">Save and close</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="item item-button-right ion-ios-film" ng-click="selCate('life',true)">
+        Life
+        <button class="button button-positive" ng-click="followCate('life');$event.stopPropagation();">
+          <div ng-if="!followdata.life">Follow</div><div ng-if="followdata.life">Following</div>
+        </button>
+        <button ng-if="followdata.life && data.cate5" class="button button-calm" style="margin-right:110px">
+          {{toStars(data.cate5)}}
+        </button>
+      </div>
+      <div ng-if="data.life && followdata.life" style="padding-top: 10px;padding-bottom:10px;">
+        <div style="border: solid 1px #e2e2e2;">
+          <div style="text-align: center; font-weight: bold; padding-top: 10px; padding-bottom: 10px;">Are you an expert in this?</div>
+          <div style="padding: 10px;">
+            You can be one professionally or in your personal life.  Let us know so that we'll be able to tell our community what opinions both professionals and hobbyists have on their questions.
+          </div>
+          <div class="start-selection">
+            <ion-list>
+              <ion-radio ng-model="data.cate5" ng-value="'cate5_1'">☆☆☆☆☆ Just following this topic</ion-radio>
+              <ion-radio ng-model="data.cate5" ng-value="'cate5_2'">★☆☆☆☆ Not a great deal of life experience but has learned some things worth sharing</ion-radio>
+              <ion-radio ng-model="data.cate5" ng-value="'cate5_3'">★★☆☆☆ Significant life experience but no formal training in life coaching or counseling</ion-radio>
+              <ion-radio ng-model="data.cate5" ng-value="'cate5_4'">★★★☆☆ Formal training in life coaching or counseling or related past work experience</ion-radio>
+              <ion-radio ng-model="data.cate5" ng-value="'cate5_5'">★★★★☆ Currently work professionally as a life coach or counselor</ion-radio>
+              <ion-radio ng-model="data.cate5" ng-value="'cate5_6'">★★★★★ Distinguished professional life coach or counselor</ion-radio>
+            </ion-list>
+          </div>
+          <div class="row">
+            <label class="item item-input-wrapper textarea-cls">
+              <textarea class="ask-detail" placeholder="Tell us a little more, if you'd like(required for 5-star ratings)" ng-model="data.rate5" ng-click="" ng-trim="false" maxlength="70" style="max-height:40px"></textarea>
+            </label>
+            <div class="col col-20">
+              <button class="button icon ion-mic-a button-positive" ng-click="recordQuestion(data.rate5)"></button>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col col-80 text-right">{{70 - data.rate5.length}}</div>
+          </div>
+          <div style="padding: 10px;">
+            Note: To make 4- and 5-star ratings more believable for everyone, there is a maximum limit of one 5-star and two 4-stars per person.
+          </div>
+          <div style="text-align: center; padding-bottom: 10px;">
+            <button class="button button-positive" ng-click="selCate('life')">Save and close</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="item item-button-right ion-code-working" ng-click="selCate('work',true)">
+        Work
+        <button class="button button-positive" ng-click="followCate('work');$event.stopPropagation();">
+          <div ng-if="!followdata.work">Follow</div><div ng-if="followdata.work">Following</div>
+        </button>
+        <button ng-if="followdata.work && data.cate6" class="button button-calm" style="margin-right:110px">
+          {{toStars(data.cate6)}}
+        </button>
+      </div>
+      <div ng-if="data.work && followdata.work" style="padding-top: 10px;padding-bottom:10px">
+        <div style="border: solid 1px #e2e2e2;">
+          <div style="text-align: center; font-weight: bold; padding-top: 10px; padding-bottom: 10px;">Are you an expert in this?</div>
+          <div style="padding: 10px;">
+            You can be one professionally or in your personal life.  Let us know so that we'll be able to tell our community what opinions both professionals and hobbyists have on their questions.
+          </div>
+          <div class="start-selection">
+            <ion-list>
+              <ion-radio ng-model="data.cate6" ng-value="'cate6_1'">☆☆☆☆☆ Just following this topic</ion-radio>
+              <ion-radio ng-model="data.cate6" ng-value="'cate6_2'">★☆☆☆☆ Not a great deal of work experience but has learned some things worth sharing</ion-radio>
+              <ion-radio ng-model="data.cate6" ng-value="'cate6_3'">★★☆☆☆ Significant work experience but no formal training in management or HR</ion-radio>
+              <ion-radio ng-model="data.cate6" ng-value="'cate6_4'">★★★☆☆ Formal training in management or HR or related past work experience</ion-radio>
+              <ion-radio ng-model="data.cate6" ng-value="'cate6_5'">★★★★☆ Currently work professionally in management or human resources</ion-radio>
+              <ion-radio ng-model="data.cate6" ng-value="'cate6_6'">★★★★★ Distinguished professional in business management or human resources</ion-radio>
+            </ion-list>
+          </div>
+          <div class="row">
+            <label class="item item-input-wrapper textarea-cls">
+              <textarea class="ask-detail" placeholder="Tell us a little more, if you'd like(required for 5-star ratings)" ng-model="data.rate6" ng-click="" ng-trim="false" maxlength="70" style="max-height:40px"></textarea>
+            </label>
+            <div class="col col-20">
+              <button class="button icon ion-mic-a button-positive" ng-click="recordQuestion(data.rate6)"></button>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col col-80 text-right">{{70 - data.rate6.length}}</div>
+          </div>
+          <div style="padding: 10px;">
+            Note: To make 4- and 5-star ratings more believable for everyone, there is a maximum limit of one 5-star and two 4-stars per person.
+          </div>
+          <div style="text-align: center; padding-bottom: 10px;">
+            <button class="button button-positive" ng-click="selCate('work')">Save and close</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="item item-button-right ion-pizza" ng-click="selCate('food',true)">
+        Food
+        <button class="button button-positive" ng-click="followCate('food');$event.stopPropagation();">
+          <div ng-if="!followdata.food">Follow</div><div ng-if="followdata.food">Following</div>
+        </button>
+        <button ng-if="followdata.food && data.cate7" class="button button-calm" style="margin-right:110px">
+          {{toStars(data.cate7)}}
+        </button>
+      </div>
+      <div ng-if="data.food && followdata.food" style="padding-top: 10px;padding-bottom:10px;">
+        <div style="border: solid 1px #e2e2e2;">
+          <div style="text-align: center; font-weight: bold; padding-top: 10px; padding-bottom: 10px;">Are you an expert in this?</div>
+          <div style="padding: 10px;">
+            You can be one professionally or in your personal life.  Let us know so that we'll be able to tell our community what opinions both professionals and hobbyists have on their questions.
+          </div>
+          <div class="start-selection">
+            <ion-list>
+              <ion-radio ng-model="data.cate7" ng-value="'cate7_1'">☆☆☆☆☆ Just following this topic</ion-radio>
+              <ion-radio ng-model="data.cate7" ng-value="'cate7_2'">★☆☆☆☆ Regular hobby</ion-radio>
+              <ion-radio ng-model="data.cate7" ng-value="'cate7_3'">★★☆☆☆ Serious hobby</ion-radio>
+              <ion-radio ng-model="data.cate7" ng-value="'cate7_4'">★★★☆☆ Formal training or past work experience</ion-radio>
+              <ion-radio ng-model="data.cate7" ng-value="'cate7_5'">★★★★☆ Currently work in this field</ion-radio>
+              <ion-radio ng-model="data.cate7" ng-value="'cate7_6'">★★★★★ Distinguished professional</ion-radio>
+            </ion-list>
+          </div>
+          <div class="row">
+            <label class="item item-input-wrapper textarea-cls">
+              <textarea class="ask-detail" placeholder="Tell us a little more, if you'd like(required for 5-star ratings)" ng-model="data.rate7" ng-click="" ng-trim="false" maxlength="70" style="max-height:40px"></textarea>
+            </label>
+            <div class="col col-20">
+              <button class="button icon ion-mic-a button-positive" ng-click="recordQuestion(data.rate7)"></button>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col col-80 text-right">{{70 - data.rate7.length}}</div>
+          </div>
+          <div style="padding: 10px;">
+            Note: To make 4- and 5-star ratings more believable for everyone, there is a maximum limit of one 5-star and two 4-stars per person.
+          </div>
+          <div style="text-align: center; padding-bottom: 10px;">
+            <button class="button button-positive" ng-click="selCate('food')">Save and close</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="item item-button-right ion-android-star-half" ng-click="selCate('best',true)">
+        Best of Ask the World
+        <button class="button button-positive" ng-click="followCate('best');$event.stopPropagation();">
+          <div ng-if="!followdata.best">Follow</div><div ng-if="followdata.best">Following</div>
+        </button>
+        <button ng-if="followdata.best && data.cate8" class="button button-calm" style="margin-right:110px">
+          {{toStars(data.cate8)}}
+        </button>
+      </div>
+
+    </div>
+    <div style="padding-top: 20px" align="center">
+      <button class="button button-positive" ng-click="moveToStep5()">Next: See your question digest ➡</button>
+    </div>
+    
+  </ion-content>
+</ion-view>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

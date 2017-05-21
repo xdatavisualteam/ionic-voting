@@ -1,0 +1,59 @@
+<ion-view title="Post Question">
+  <ion-content delegate-handle="" class="padding post_question">
+    <div style="text-align: center">
+      <strong>{{questionTitle}}</strong>
+    </div>
+    <ion-list>
+      <ion-item class="item-stable" ng-click="toggleGroup(1)" ng-class="{active: isGroupShown(1)}">
+        <i class="icon" ng-class="isGroupShown(1) ? 'ion-minus' : 'ion-plus'"></i>
+        Set up target respondents >
+      </ion-item>
+      <div class="item-accordion" ng-show="isGroupShown(1)">
+        Ask the World members in any demographics that you recommend can receive your question in their For Me feed.
+        <button class="button button-stable">
+          Recommend demographics for your question
+        </button>
+        <div style="height: 20px">&nbsp;</div>
+      </div>
+      <ion-item class="item-stable" ng-click="toggleGroup(2)" ng-class="{active: isGroupShown(2)}">
+        <i class="icon" ng-class="isGroupShown(2) ? 'ion-minus' : 'ion-plus'"></i>
+        Ask this question anonymously >
+      </ion-item>
+      <div class="item-accordion" ng-show="isGroupShown(2)">
+        <div class="row">
+          <div class="col col-80">
+            <ion-checkbox ng-model="isChecked" ng-change="askAnonymously(isChecked)">Ask this question anonymously</ion-checkbox>
+            <div ng-if="isChecked">
+              <ion-radio ng-model="hideName">Hide my name, but show my bio and expertise for this topic:</ion-radio>
+              Example: 
+              <div class="item item-text-wrapping">
+                <strong>NBA fan since the 1980s</strong><br>
+                ★☆☆☆☆<br>
+                Sports is your regular hobby
+              </div>
+              <div>
+                You haven't rated your expertise in Sports. but you can change that in your profile, Until you rate yourself in this category, your answer will be fully anonymous
+              </div>
+              <ion-radio ng-model="hideBothNameBio">Hide both my name and my bio</ion-radio>
+            </div>
+          </div>
+          <div class="col col-20" ng-click="popupMsg()">
+            <i class="icon ion-information-circled" style="font-size: 44px;"></i>
+          </div>
+        </div>
+      </div>
+      <ion-item class="item-stable" ng-click="toggleGroup(3)" ng-class="{active: isGroupShown(3)}">
+        <i class="icon" ng-class="isGroupShown(3) ? 'ion-minus' : 'ion-plus'"></i>
+        Set up voting preferences >
+      </ion-item>
+      <div class="item-accordion" ng-show="isGroupShown(3)">
+        <ion-checkbox ng-model="firstChk">Let people see the results without voting</ion-checkbox>
+        <ion-checkbox ng-model="secondChk">Let people add new answers</ion-checkbox>
+      </div>
+    </ion-list>
+    <a ng-click="postQuestion()" class="button button-block button-positive">
+        Post Question  
+    </a>
+    <!-- <div class="no_dup" ng-click="">Edit my question</div> -->  
+  </ion-content>
+</ion-view>

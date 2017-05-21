@@ -1,0 +1,38 @@
+<ion-view title="Sign up to Ask" ng-controller="InvitationToSignUpCtrl">
+  <ion-content class="padding">
+
+    <div class="row">
+      <div class="col col-20"><img ng-src="img/like.svg" style="height: 54px; width: 54px;" /></div>
+      <div class="col col-80"><h1>Join the friendliest place to get mass opinions.</h1></div>
+    </div>
+
+    <div class="gray-info">
+      To make sure questions are from real people, we can't post your question until you register.  Your votes are also not counted in results unless viewers specifically include unregistered voters.
+      <br />
+      <br />
+      We have given you a temporary demo account to use today.  After you sign up, your questions and answers from today will transfer to your actual account.  Anything that you have decided to make anonymous will remain anonymous.
+    </div>
+
+
+    <a href="/#/onboarding/fb1?next_step=askresultbysignup" class="button button-block button-facebook">
+      <span class="icon-left ion-social-facebook"></span>
+      <div>
+        Connect with Facebook <br />to post your question
+      </div>
+    </a>
+
+
+    <div ng-include src="'templates/signup-reasons.html'" style="padding-top:10px;padding-bottom:10px"></div>
+
+    <a href="/#/onboarding/fb1?next_step=askresultbysignup" class="button button-block button-facebook">
+      <span class="icon-left ion-social-facebook"></span>
+      <div>
+        Connect with Facebook <br />to post your question
+      </div>
+    </a>
+
+    <div style="text-align: center; padding-top: 15px; font-size: 15px;"><a href="" style="text-decoration: none" ng-click="goBackAndEdit();">Go back and edit your question</a></div>
+    <div style="text-align: center; padding-top: 15px; font-size: 15px;"><a href="#/qustionlive" style="text-decoration: none">Keep participating anonymously for now</a></div>
+    <div style="text-align: center; padding-top: 15px; font-size: 15px; padding-bottom: 30px;"><a href="" style="text-decoration: none;" ng-click="showAlert('Alert', 'Coming soon!');">Learn more about Ask the World</a></div>
+  </ion-content>
+</ion-view>

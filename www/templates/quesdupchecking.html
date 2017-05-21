@@ -1,0 +1,41 @@
+<ion-view>
+	<div class="bar bar-header">
+		<h1 class="title">&nbsp;</h1>
+		<div class="button button-clear" ng-click="modal.hide()">
+			<span class="icon ion-close"></span>
+		</div>
+	</div>
+  	<ion-content>
+  		<div class="askingdetail_body">
+  			<div>
+  				This question may be a duplicate of:
+  			</div>
+  			<li class="dub_ques_title"><strong>{{duplicatedQues.category}}</strong></li>
+  			<div class="">{{duplicatedQues.q}}</div>
+  			<div class="row">
+  				<div class="col col-10">
+	  				<div class="collapse-icon ion-ios-plus-empty" ng-click="titleCollapse()"></div>
+	  			</div>
+				<div class="title_collapse">Description:<br>{{duplicatedQues.detail}}</div>
+	  				
+	  		</div>
+	  		<div ng-repeat="answer in duplicatedQues.answers">
+	  			<div class="row row-center">
+	  				<div class="col col-90">
+	  					<strong>{{answer.name}}</strong>
+	  					<progress max="100" value="{{answer.percent}}"></progress>
+	  					{{answer.percent}}% ({{answer.votes}} votes)
+	  				</div>
+	  				<div class="col col-10">
+	  					<i class="ion-ios-help-empty"></i>
+	  				</div>
+	  			</div>
+	  		</div>
+	  		<div style="text-align: center">Last vote: 3 days ago</div>
+	  		<a href="" ng-click="modal.hide();" class="button button-block button-positive activated">
+       	 		Yes, this was my question  
+      		</a>
+      		<div class="no_dup" ng-click="noDuplicateQues()">No, not a duplicate</div>  	
+  		</div>
+	</ion-content>
+</ion-view>

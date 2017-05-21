@@ -1,0 +1,25 @@
+<ion-view>
+	<div class="bar bar-header">
+		<h1 class="title">&nbsp;</h1>
+		<div class="button button-clear" ng-click="closeAllModal()">
+			<span class="icon ion-close"></span>
+		</div>
+	</div>
+	<ion-content class="padding">
+		<div class="askingdetail_body">
+			Why isn't this question a duplicate?
+		</div>
+		<li class="dub_ques_title"><strong>{{duplicatedQues.category}}</strong></li>
+		<div class="">{{duplicatedQues.q}}</div>
+		<br>
+    <div>Let us know to help make the site better.</div>
+		<ion-radio ng-model="dif_topic">This question is about a different topic</ion-radio>
+		<ion-radio ng-model="dif_period">This question applies to a different time period</ion-radio>
+		<ion-radio ng-model="diff_other">Other:</ion-radio>
+		<textarea class="" placeholder="Provide more details(optional)" style="width: 100%;" rows="4"></textarea>
+		<a href="" ng-click="closeAllModal()" class="button button-block button-positive activated">
+     	 		Send feedback
+    	</a>
+    <div class="no_dup" ng-click="closeAllModal()">Skip and keep working on my question</div>
+	</ion-content>
+</ion-view>

@@ -1,0 +1,12 @@
+{
+  "name": "atwm",
+  "app_id": "7cc00fdc",
+  "gulpStartupTasks": [
+    "sass",
+    "watch"
+  ],
+  "watchPatterns": [
+    "www/**/*",
+    "!www/lib/**/*"
+  ]
+}

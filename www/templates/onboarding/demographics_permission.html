@@ -1,0 +1,38 @@
+<ion-view title="Profile Picture and Demographics" ng-controller="OnboardingCtrl">
+  <ion-content class="padding">
+    <div class="row" style="padding: 0px; margin-left: -5px;">
+      <div class="col step1">✔ Avatar</div>
+      <div class="col step2">About You</div>
+      <div class="col step3">Topics</div>
+    </div>
+    <div style="padding-top: 5px;">
+      <progress max="100" value="40"></progress>
+      40% complete
+    </div>
+    <div style="text-align: center; padding-top: 20px; font-size: 22px; font-weight: bold;">
+      Get better questions and answers
+    </div>
+    <ion-scroll direction="y" style="height: 200px;margin-top:20px;margin-bottom:20px;text-align:center">
+      <img ng-src="img/filter_img.png" style="width:100%">
+    </ion-scroll>
+      <div>
+        <p>
+          Ask the World allows you to filter respondents based on their demographic details, such as age or gender. You can also target people with specific demographics when you ask a question, to get the most relevant results you want. To be fair to all members, you can only filter or target  demographics that you have also provided.
+        </p>
+
+        <p>
+          Information you provide is strictly private to you and will never be displayed to anyone else. To protect your privacy, your info is only used in aggregate to enable filtering and statistics, when there are more than 10 people with the same demographic detail.  You can skip any detail that you don't want to provide.
+        </p>
+
+        <p>
+          Would you like to provide your info to help make Ask the World better?
+        </p>
+      </div>
+      <div style="padding-top: 20px" align="center">
+        <a class="button button-positive" href="#/onboarding/demographics_collection1"><span style="font-family:'Arial Regular', 'Arial';font-weight:400;">Yes, let's do this ➡</span></a>
+      </div>
+      <div align="center" class="padding" style="color: #2F83D0;">
+        <a href="#/onboarding/topics_and_expertise" style="text-decoration: none;">No, skip this part</a>
+      </div>
+</ion-content>
+</ion-view>

@@ -1,0 +1,376 @@
+/*
+To customize the look and feel of Ionic, you can override the variables
+in ionic's _variables.scss file.
+
+For example, you might change some of the default colors:
+
+$light:                           #fff !default;
+$stable:                          #f8f8f8 !default;
+$positive:                        #387ef5 !default;
+$calm:                            #11c1f3 !default;
+$balanced:                        #33cd5f !default;
+$energized:                       #ffc900 !default;
+$assertive:                       #ef473a !default;
+$royal:                           #886aea !default;
+$dark:                            #444 !default;
+*/
+
+// The path for our ionicons font files, relative to the built CSS in www/css
+$ionicons-font-path: "../lib/ionic/fonts" !default;
+
+// Include all of Ionic
+@import "www/lib/ionic/scss/ionic";
+
+.no-padding {
+    padding: 0px !important;
+}
+
+body {
+    font-family: "VarelaRoundRegular" !important;
+}
+
+.bar-positive {
+    background-color: #8c4153 !important;
+}
+
+progress {
+    background-color: white;
+    border: 0;
+    height: 18px;
+    border-radius: 8px;
+}
+
+progress::-webkit-progress-bar {
+    -webkit-appearance: none;
+    background-color: white;
+    border: 0;
+    height: 18px;
+    border-radius: 8px;
+}
+
+progress::-webkit-progress-value {
+    -webkit-appearance: none;
+    background-color: #ab5558;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.25) initial;
+    border: 0;
+    height: 18px;
+    border-radius: 8px;
+}
+
+progress::-moz-progress-bar {
+    background-color: #ab5558;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.25) initial;
+    height: 18px;
+    border-radius: 8px;
+}
+
+.button {
+    background-color: #8c4153;
+    font-family: "VarelaRoundRegular";
+    border-radius: 6px;
+    min-height: 44px;
+    font-size: 100%;
+    justify-content: center;
+    display: flex !important;
+    flex-direction: column;
+    line-height: unset !important;
+    white-space: normal;
+    align-items:center;
+    margin:auto;
+}
+
+.button-small {
+    min-height: 30px !important;
+}
+
+.bar-positive .button {
+    background-color: #8c4153;
+}
+
+.button.icon-left {
+    flex-flow: initial;
+    padding-left: 32px;
+}
+.button.icon-left::before {
+    position: absolute;
+    left: 10px;
+}
+
+
+.button-positive {
+    background: #8c4153; /* For browsers that do not support gradients */
+    background: -webkit-linear-gradient(100deg, #ab5458, #8c4153); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(100deg, #ab5458, #8c4153); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(100deg, #ab5458, #8c4153); /* For Firefox 3.6 to 15 */
+    background: linear-gradient(100deg, #ab5458, #8c4153); /* Standard syntax */
+    border: 0px;
+}
+
+.button.button-positive.activated {
+    background: #ab5458 !important;
+}
+
+.button.button-dark.button-outline {
+    border-color: #8c4153;
+}
+
+.button.activated {
+    background: #975558 !important;
+}
+
+.bar.bar-positive {
+    border: none;
+}
+
+.pane {
+    background-color: #EAE8E4 !important;
+}
+
+.bar-header, .bar-subheader {
+    font-family: "VarelaRoundRegular" !important;
+    font-size: 12pt !important;
+    padding: 0px;
+}
+
+.bar-header {
+    height: 40px;
+}
+
+.bar-subheader {
+    background: #fff;
+    background: -webkit-linear-gradient(90deg, #fff, #f9f9f9);
+    background: -o-linear-gradient(90deg, #fff, #f9f9f9);
+    background: -moz-linear-gradient(90deg, #fff, #f9f9f9);
+    background: linear-gradient(180deg, #fff, #f9f9f9);
+    -webkit-box-shadow: 0px 3px 3px 0px rgba(199,199,199,1);
+    -moz-box-shadow: 0px 3px 3px 0px rgba(199,199,199,1);
+    box-shadow: 0px 3px 3px 0px rgba(199,199,199,1);
+    height: 46px;
+    top: 40px;
+}
+
+.bar-subheader .item {
+    background: none;
+    border: none;
+}
+
+.bar-subheader img {
+    height: 20px;
+    margin-top: 4px;
+    display: inline;
+}
+
+.bar-subheader i {
+    display: inherit;
+    font-size: 10pt;
+    margin-top: -6px;
+    color: #727272;
+}
+
+.bar-subheader a, .bar-subheader div.col {
+    padding: 0px;
+}
+
+.bar-subheader a {
+    margin: 0px;
+    padding-bottom: 3px;
+}
+
+.bar-subheader a:active {
+    background-color: #EAE8E4;
+}
+
+.button-dark i {
+    color: #8c4153;
+}
+
+.button-dark span {
+    color: #919191;
+    font-size: 10pt;
+}
+
+.button-dark.activated i {
+    color: #f9f9f9;
+}
+
+.button-dark.activated span {
+    color: rgba(199,199,199,1);
+    font-size: 10pt;
+}
+
+.button-stable {
+    background: #d9c098; /* For browsers that do not support gradients */
+    background: -webkit-linear-gradient(100deg, #f8dfb7, #d9c098); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(100deg, #f8dfb7, #d9c098); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(100deg, #f8dfb7, #d9c098); /* For Firefox 3.6 to 15 */
+    background: linear-gradient(100deg, #f8dfb7, #d9c098); /* Standard syntax */
+    color: #8c4153 !important;
+    font-family: "VarelaRoundRegular";
+    border: 0px;
+    box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.05);
+}
+
+.button.button-stable.activated {
+    background: #f8dfb7 !important;
+}
+
+.button-facebook {
+    background: #436BBF; /* For browsers that do not support gradients */
+    background: -webkit-linear-gradient(100deg, #436BBF, #3C5A99); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(100deg, #436BBF, #3C5A99); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(100deg, #436BBF, #3C5A99); /* For Firefox 3.6 to 15 */
+    background: linear-gradient(100deg, #436BBF, #3C5A99); /* Standard syntax */
+    color: #f9f9f9 !important;
+    font-family: "VarelaRoundRegular";
+    -webkit-box-shadow: 0px 0px 4px 1px rgba(0,0,0,0.1);
+    -moz-box-shadow: 0px 0px 4px 1px rgba(0,0,0,0.1);
+    box-shadow: 0px 0px 4px 1px rgba(0,0,0,0.1);
+    border: 0px;
+}
+
+.button.button-facebook.activated {
+    background: #436BBF !important;
+}
+
+a.button.button-facebook span.icon-left {
+    width: 44px;
+    background-color: #3d63b6;
+    height: 100%;
+    position: absolute;
+    left: 0px;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    border-radius: 6px 0px 0px 6px;
+    font-size: 20px;
+    top: 0px;
+    line-height: 44px;
+}
+
+a.button.button-facebook div {
+    line-height: 16px;
+    text-align: center;
+    align-items: center;
+    padding-top: 6px;
+    font-size: 10pt;
+}
+
+a.icon-right {
+    text-align: left;
+    padding-left: 14px;
+    box-shadow: 0px 0px 4px 1px rgba(0,0,0,0.1);
+}
+
+a.icon-right div {
+    width: 42px;
+    background-color: #7e394b;
+    position: absolute;
+    right: 0px;
+    top: 0px;
+    -webkit-border-radius: 0px 6px 6px 0px;
+    -moz-border-radius: 0px 6px 6px 0px;
+    border-radius: 0px 6px 6px 0px;
+    height: 100%;
+    padding: 6px;
+    fill: white;
+    opacity: 0.9;
+}
+
+
+h1 {
+    font-size: 20pt;
+    font-family: "DosisMedium";
+}
+
+h2 {
+    font-family: "DosisBold";
+    font-size: 18pt;
+    color: #8c4153;
+}
+
+h3 {
+    font-family: "DosisMedium";
+    font-size: 20pt;
+    color: #393939;
+}
+
+h4 {
+    font-family: "DosisSemiBold";
+    font-size: 16pt;
+}
+
+.item-input-wrapper {
+    background-color: #dcd9d3;
+    padding: 4px;
+    border-radius: 4px;
+    height: 100%;
+}
+
+.item-input-wrapper input, .item-input-wrapper textarea {
+    border-radius: 4px;
+    padding: 4px;
+    font-family: "VarelaRoundRegular";
+}
+
+.item-checkbox {
+    font-family: "VarelaRoundRegular";
+    font-size: 12pt;
+    text-shadow: 0px 0px 1px #F2F2F2;
+    padding: 12px 12px 12px 60px;
+}
+
+.checkbox input:checked::before, .checkbox input:checked + .checkbox-icon::before {
+    background-color: #ab5558;
+    border-color: #ab5558;
+}
+
+.item-radio input:checked + .radio-content .item-content {
+    background-color: white;
+    border: 1px solid #ab5558;
+}
+
+.item-radio input:checked + .radio-content .radio-icon {
+    background-color: #ab5558;
+    color: white;
+    display: flex;
+    align-items: center;
+}
+
+a {
+    color: #007fe9;
+}
+
+.button-link {
+    background-color: #f7f3f0;
+    text-transform: uppercase;
+    font-size: 8pt;
+    color: #007fe9;
+    border-radius: 8px;
+    border: 0px;
+    padding: 8px;
+}
+
+.button-link:hover {
+    color: #007fe9;
+    text-decoration: underline;
+}
+
+.button-link .activated {
+    background-color: #f7f3f0 !important;
+}
+
+.button-expanded {
+    padding-bottom: 18px;
+    border-radius: 8px 8px 0px 0px;
+}
+
+.button-bar > .button {
+    white-space: normal;
+}
+
+.item-button-right > .button {
+    font-size: inherit;
+}
+
+.button.icon-left::before {
+    line-height: unset !important;
+}

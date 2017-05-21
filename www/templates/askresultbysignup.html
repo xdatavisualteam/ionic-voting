@@ -1,0 +1,65 @@
+<ion-view title="Question is live" ng-controller="AskResultBySignUpCtrl">
+	<ion-content class="padding">
+
+		<h2 style="text-align: center; font-size: 18px;">
+			Hi, Christopher Zhou{{userName}}, 
+		</h2>
+		<div style="text-align: center; font-size: 18px; padding-bottom: 20px;">
+			Welcome to Ask the World.  You're signed up, and your question is live!
+		</div>
+		<div>
+			To see the results of it, check back at <font color="blue">{{askingTitle}}</font>.  You can also find this from your profile.
+		</div>
+		<div ng-if="!askTypeOption">
+		    <div ng-repeat="answer in newQuestion.answers">
+		      <div class="row row-center" ng-if="answer.name">
+		        <div class="col col-80">
+		          <b>{{answer.name}}</b>
+		          <progress max="100" value="{{answer.percent}}"></progress>
+		          {{answer.percent}}% ({{answer.votes}} votes)
+		        </div>
+		        <div class="col col-20" style="text-align: center; font-size: 10px; line-height: 1; border: solid 1px #e2e2e2; border-radius: 4px;">
+		          no reasons yet
+		        </div>
+		      </div>
+		    </div>
+		</div>
+		<div ng-if="askTypeOption">
+			<div class="row">
+				<div class="col 50" style="text-align: center">
+					<img ng-src="{{newQuestion.answers[0].imgSrc}}" ngf-thumbnail="picFile1" width="50px" height="50px" ng-click="imgClick(1);" class="thumb_img" id="file_1"/>
+					<input type="file" id="img_1" ngf-select ng-model="picFile1" name="file" accept="image/*" style="display: none" />
+				</div>
+				<div class="col 50" style="text-align: center">
+					<img ng-src="{{newQuestion.answers[1].imgSrc}}" ngf-thumbnail="picFile2" width="50px" height="50px" ng-click="imgClick(2);" class="thumb_img" id="file_2"/>
+					<input type="file" id="img_2" ngf-select ng-model="picFile2" name="file" accept="image/*" style="display: none" />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col 50" style="text-align: center">
+					<img ng-src="{{newQuestion.answers[2].imgSrc}}" ngf-thumbnail="picFile3" width="50px" height="50px" ng-click="imgClick(3);" class="thumb_img" id="file_3"/>
+					<input type="file" id="img_3" ngf-select ng-model="picFile3" name="file" accept="image/*" style="display: none" />
+				</div>
+				<div class="col 50" style="text-align: center">
+					<img ng-src="{{newQuestion.answers[3].imgSrc}}" ngf-thumbnail="picFile4" width="50px" height="50px" ng-click="imgClick(4);" class="thumb_img" id="file_4"/>
+					<input type="file" id="img_4" ngf-select ng-model="picFile4" name="file" accept="image/*" style="display: none" />
+				</div>
+			</div>
+		</div>
+
+	    <h4 align="center" style="padding-bottom: 15px; padding-top: 28px;">Filter responses</h4>
+	    <div align="left">
+	      You can start <a href="#/filteringtype">filtering responses</a> by gender and country once there are at least 20 responses. <a ng-click="showAlert('Alert', 'Coming soon!')">Tell us more about yourself</a> to be able to use up to 9 more filters, including age, relationship status, region, and ethnicity.
+	    </div>
+	    <h4 align="center" style="padding-top: 28px;">Help get more responses</h4>
+	    <div align="center" style="padding-top: 10px">
+	      <button class="button icon-left ion-social-facebook button-stable">Share</button>
+	      <button class="button icon-left ion-social-tumblr button-stable">Tweet</button>
+	      <button class="button icon-left ion-email button-stable">Email</button>
+	    </div>
+	    <div class="padding">
+	    	<a class="button button-positive button-block" href="#/onboarding/profile_pic_demographics">Start setting up your profile to see more interesting questions ➡</a>
+	    </div>
+	    
+	</ion-content>
+</ion-view>

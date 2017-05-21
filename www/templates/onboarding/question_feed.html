@@ -1,0 +1,78 @@
+<ion-view title="Question Feed" ng-controller="OnboardingCtrl">
+  <ion-content class="padding">
+    
+    <div class="padding">
+      <h2>Questions recommended for everyone</h2>
+    </div>
+    <div style="display:table;width: 100%;">
+      <div class="row" style="width: 100px;float: right;">
+        <div class="col">
+          <a class="button button-outline button-small button-stable item item-icon-bottom">
+            <i class="fa fa-street-view" style="font-size: 22px;"></i>
+          </a>
+          <a class="button button-outline button-small button-stable item item-icon-bottom">
+            <i class="fa fa-heartbeat" style="font-size: 22px;"></i>
+          </a>
+          <a class="button button-outline button-small button-stable item item-icon-bottom">
+            <i class="fa fa-user-secret" style="font-size: 22px;"></i>
+          </a>
+          <a class="button button-outline button-small button-stable item item-icon-bottom">
+            <i class="fa fa-trophy" style="font-size: 22px;"></i>
+          </a>
+        </div>
+        <div class="col">
+          <a class="button button-outline button-small button-stable item item-icon-bottom">
+            <i class="fa fa-camera" style="font-size: 22px;"></i>
+          </a>
+          <a class="button button-outline button-small button-stable item item-icon-bottom">
+            <i class="fa fa-user-md" style="font-size: 22px;"></i>
+          </a>
+          <a class="button button-outline button-small button-stable item item-icon-bottom">
+            <i class="fa fa-cutlery" style="font-size: 22px;"></i>
+          </a>
+          <a class="button button-outline button-small button-stable item item-icon-bottom">
+            <i class="fa fa-flask" style="font-size: 22px;"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+    <ion-list>
+      <ion-item data-ng-repeat="q in missionQues track by $index" style="padding:0px;margin:10px 0px 10px 0px;" class="question-item">
+        <div class="row" style="padding:8px;">
+          <div class="col" style="flex:none;width:60px;display:flex;align-items:center"><div class="topic-bg-{{q.category}}" style="height:42px;width:42px;margin-bottom: 4px;"></div> </div>
+          <div class="col item-text-wrap">
+            <a href="#/answering/{{q.id}}" class="question-list"><i>{{q.q}}</i></a>
+            <br />
+            <div class="row" style="padding:0px;font-family:VarelaRoundRegular;font-size:10pt;">
+              <div class="col" style="padding: 8px 0px 0px;">
+                in <a href="#/question_feed_for_topic?topic={{q.category}}" style="text-decoration:none;color:inherit">
+                  <i style="text-transform: capitalize;" class="topic-text-{{q.category}}">{{q.category}}</i>
+                </a>
+              </div>
+              <div class="col gray-info" style="padding: 8px 0px 0px;">{{q.posted}} ago</div>
+            </div>
+          </div>
+        </div>
+      </ion-item>
+    </ion-list>
+	<ion-infinite-scroll distance="2"
+        	on-infinite="loadMoreData()"
+        ></ion-infinite-scroll>
+  </ion-content>
+</ion-view>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

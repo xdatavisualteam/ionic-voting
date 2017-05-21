@@ -1,0 +1,25 @@
+<ion-view title="Facebook" ng-controller="OnboardingCtrl">
+  <ion-content class="padding">
+    <div style="">&nbsp;</div>
+    <div class="row text-center">
+      <div class="col" style="text-align: right;" ><img src="img/atw-logo-full.png" style="width: 80px;"/></div>
+      <div class="col" style="text-align: left;"><img src="img/user.svg" style="width: 80px;"></div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <p><b>Ask the World</b> will receive the following info: your public profile, friend list, and email address.</p>
+        <p class="text-center" style="color: gray">✏ Edit the information you provide</p>
+        <p>🔒 This does not let the site post to Facebook.</p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col col-80">
+        <a class="button button-stable" href="#/onboarding/question_feed?registered=false" style="width: 80px; float: right;">Cancel</a>
+      </div>
+      <div class="col col-20" >
+        <button class="button button-positive" ng-click="loginWithFacebook()">Okay</button>
+      </div>
+    </div>
+    <div class="col" style="font-size: 12px;">Terms | Privacy Policy</div>
+  </ion-content>
+</ion-view>

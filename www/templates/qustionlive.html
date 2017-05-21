@@ -1,0 +1,47 @@
+<ion-view title="Question is live">
+  <ion-content delegate-handle="" class="padding">
+    <h2>Your question is live!</h2>
+    <div style="text-align: center">
+      <strong>{{questionTitle}}</strong>
+    </div>
+    <div align="right">No votes yet</div>
+    <div ng-if="hasAnswers()" ng-repeat="answer in newQuestion.answers">
+      <div class="row row-center" ng-if="answer.name">
+        <div class="col col-90">
+          <strong>{{answer.name}}</strong>
+          <progress max="100" value="{{answer.percent}}"></progress>
+          {{answer.percent}}% ({{answer.votes}} votes)
+        </div>
+        <div class="col col-10">
+          <!-- Reasons button goes here when there is data. -->
+        </div>
+      </div>
+    </div>
+
+    <div ng-if="!hasAnswers()">
+      <div class="card">
+        <div class="item item-text-wrap">
+          Results will start showing here as soon as people have voted.
+        </div>
+      </div>
+    </div>
+
+    <h4 align="center" style="padding-bottom: 5px;">Filter responses</h4>
+    <div align="center">
+      You can start <a href="#/filteringtype">filtering responses</a> by gender, country, and up to 9 more categories once there are at least 20 responses.  <a ng-click="showAlert('Alert', 'Coming soon!')">Complete your profile</a> to be able to use all of these categories.
+    </div>
+    <h4 align="center">Help get more responses</h4>
+    <div class="row">
+      <div class="col">
+        <button class="button icon-left ion-social-facebook button-stable">Share</button>
+      </div>
+      <div class="col">
+        <button class="button icon-left ion-social-tumblr button-stable">Tweet</button>
+      </div>
+      <div class="col">
+        <button class="button icon-left ion-email button-stable">Email</button>
+      </div>
+    </div>
+    <a class="button button-positive button-block" href="#/answering/1">Answer a question</a>
+  </ion-content>
+</ion-view>

@@ -1,0 +1,49 @@
+<ion-view title="Profile Picture and Demographics" ng-controller="OnboardingCtrl">
+  <ion-content class="padding">
+    <div class="row" style="padding: 0px; margin-left: -5px;">
+      <div class="col step1">✔ Topics</div>
+      <div class="col step2">Digest</div>
+      <div class="col step3">Explore the World!</div>
+    </div>
+    <div style="padding-top: 5px;">
+      <progress max="100" ng-value="100"></progress>
+      100% complete
+    </div>
+    <div class="padding">
+
+      <div style="text-align: center; padding-top: 20px; padding-bottom: 20px; font-size: 22px; font-weight: bold;">
+        All done!
+      </div>
+      <div>
+        Thanks for setting up your profile! 
+      </div>
+      <div style="padding-top: 20px; padding-bottom: 30px;">
+        We'd like to show you a list of questions that you'll find interesting, based on what you told us earlier.
+      </div>
+
+    </div>
+    <div align="center" style="padding: 5px">
+      <a class="button button-positive" href="#/onboarding/question_feed_me" style="width: 300px;"><span style="font-family:'Arial Regular', 'Arial';font-weight:400;" >See questions for me ➡</span></a>
+    </div>
+    <div align="center" style="padding: 5px">
+      <a class="button button-positive" href="#/answering/{{featuredQuestID}}" style="width: 300px;"><span style="font-family:'Arial Regular', 'Arial';font-weight:400;" >Answer today's featured question ➡</span></a>
+    </div>
+    <div align="center" style="padding: 5px">
+      <a class="button button-positive" href="#/ask" style="width: 300px;"><span style="font-family:'Arial Regular', 'Arial';font-weight:400;" >Ask a question ➡</span></a>
+    </div>
+  </ion-content>
+</ion-view>
+
+
+
+
+
+
+
+
+
+
+
+
+
+

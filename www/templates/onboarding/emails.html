@@ -1,0 +1,46 @@
+<ion-view title="Profile Picture and Demographics" ng-controller="OnboardingCtrl">
+  <ion-content class="padding">
+    <div class="row" style="padding: 0px; margin-left: -5px;">
+      <div class="col step1">✔ Topics</div>
+      <div class="col step2">Digest</div>
+      <div class="col step3">Explore the World!</div>
+    </div>
+    <div style="padding-top: 5px;">
+      <progress max="100" ng-value="80"></progress>
+      80% complete
+    </div>
+    <div class="padding">
+
+      <div style="text-align: center; padding-top: 20px; padding-bottom: 20px; font-size: 22px; font-weight: bold;">
+        Get great questions for you, right in your inbox
+      </div>
+      <div>
+        Now that we know a little more about you and your interests, you'll be able to see questions selected just for you in your For Me feed.
+      </div>
+      <div style="padding-top: 20px; padding-bottom: 30px;">
+        It'll look like this:
+      </div>
+      <div>
+        <img src="img/emails-onboarding.png" width="280px">
+      </div>
+      <div style="padding: 10px;">
+        Would you like to receive a list of these via email once a week?
+      </div>
+      <div style="padding: 10px;">
+        Here's the email address we have for you:
+      </div>
+      <div style="text-align: center;">
+        test@example.com <font style="color: blue; text-decoration: underline;">✏ change</font>
+      </div>
+
+    </div>
+    <div style="padding-top: 20px" align="center">
+      <a class="button button-positive" href="#/onboarding/onboarding_complete">Yes, please send me great questions every week</a>
+    </div>
+    <div style="padding: 10px; color: #2F83D0; text-align: center;">
+      <a href="#/onboarding/onboarding_complete" style="text-decoration: none;">No, thanks</a>
+    </div>
+    
+  </ion-content>
+</ion-view>
+

@@ -1,0 +1,41 @@
+<ion-view title="Profile Picture and Demographics" ng-controller="OnboardingCtrl">
+  <ion-content class="padding">
+    <div class="row" style="padding: 0px; margin-left: -5px;">
+      <div class="col step1">✔ Sign Up</div>
+      <div class="col step2">Avatar</div>
+      <div class="col step3">About You</div>
+    </div>
+    <div style="padding-top: 5px;">
+      <progress max="100" value="20"></progress>
+      20% complete
+    </div>
+    <h1>
+      Welcome to Ask the World!
+    </h1>
+    <div>
+      <div class="inline">
+        <img ng-src="{{fbProfileImg}}" ngf-thumbnail="fbPicFile" width="50px" height="50px" class="thumb_img" id="fbProfileImgId"/>
+        <input type="file" id="fbProfileImgInputId" ngf-select ng-model="fbPicFile" name="file" accept="image/*" style="display: none" />
+      </div>
+      <div class="inline" style="padding-left: 10px; padding-top: 25px;">Christopher Zhou</div>
+      <br class="clearBoth" />
+    </div>
+    <div style="float: right;">
+      <button class="button button-block icon-left ion-camera button-positive" ng-click="changeProfilePic();" style="width: 200px;">Change your picture</button>
+    </div>
+    <div style="padding-top: 10px;float: right;">
+      <button class="button button-block icon-left ion-person button-positive" style="width: 200px;">Make an Avatar</button>
+    </div>
+    <div style="width: 100%; padding-top: 10px;" align="right">
+      <div style="width: 200px; text-align: center; line-height: 13px; color: #2F83D0;" ng-click="resetFbPic()">Reset to Facebook profile picture</div>
+    </div>
+    <div style="width: 100%; padding-top: 30px;" align="right">
+      <div style="width: 200px; text-align: left; line-height: 16px; font-style: italic;">
+        Your profile picture isn't shown when you ask or answer a question anonymously.
+      </div>
+    </div>
+    <div style="padding-top: 40px; width: 100%" align="center">
+      <a class="button button-positive" href="#/onboarding/demographics_permission"><span style="font-family:'Arial Regular', 'Arial';font-weight:400;">&nbsp;&nbsp; Continue to demographics ➡</span></a>
+    </div>
+  </ion-content>
+</ion-view>

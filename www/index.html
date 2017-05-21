@@ -1,0 +1,223 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+  <title></title>
+
+  <!-- compiled css output -->
+  <link href="css/ionic.app.css" rel="stylesheet">
+  <!-- <link href="css/nifty.modal.css" rel="stylesheet"> -->
+  <!-- Custom CSS -->
+  <link href="css/style.css" rel="stylesheet">
+  <link href="css/fonts.css" rel="stylesheet">
+  <link href="css/font-awesome/font-awesome.css" rel="stylesheet">
+  <link href="css/animate.css" rel="stylesheet">
+  <!-- ionic/angularjs js -->
+  <script src="lib/ionic/js/ionic.bundle.js"></script>
+
+  <script src="lib/jquery/jquery.min.js"></script>
+  <script src="lib/jquery-ui/jquery-ui.min.js"></script>
+  <script src="lib/jqueryui-touch-punch/jquery.ui.touch-punch.min.js"></script>
+
+  <script src="lib/ng-file-upload/ng-file-upload-shim.js"></script>
+  <script src="lib/ng-file-upload/ng-file-upload.min.js"></script>
+
+  <script src="lib/lodash/lodash.min.js"></script>
+
+  <!-- cordova script (this will be a 404 during development) -->
+  <script src="cordova.js"></script>
+
+  <!-- your app's js -->
+  <script src="js/data.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/routes.js"></script>
+  <script src="js/controllers.js"></script>
+</head>
+<body ng-app="atwm" ng-controller="AppCtrl">
+  <div class="bar bar-header bar-positive">
+    <table style="width:100%;height:100%">
+      <tr>
+        <td style="width:84px">
+          <a class="button-menu" ng-click="showMenu()">
+            <span style="padding-left:30px;font-size:0.9em">MENU</span>
+          </a>
+        </td>
+        <td style="text-align: center;vertical-align: middle;" id="logoMenu">
+          <a ng-if="isDemo" href="/#/" class="button"><img style="height:28px;" src="/img/atw-logo.svg" /></a>
+          <a ng-if="!isDemo" href="#/onboarding/question_feed_me" class="button"><img style="height:28px;" src="/img/atw-logo.svg" /></a>
+        </td>
+        <td style="vertical-align:middle;min-width: 14px;">
+          <div class="item-input-inset search-box" style="float:right;width: 200px;">
+            <label class="item-input-wrapper" style="padding:0px;">
+              <input type="search" placeholder="Search" ng-model="data.searchQuery" style="height: 26px;">
+              <i class="placeholder-icon ion-ios-close-empty" ng-click="clearSearch()"></i>
+            </label>
+          </div>
+          </td>
+        <td style="width: 48px">
+          <a href="#" style="position: absolute; right: 0px; top: 4px;" ng-click="showSearch($event)">
+            <img class="button ion-navicon" style="height:32px;" src="img/search.svg" />
+          </a>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <div id="subheader-links" class="bar bar-subheader" style="padding:0px;border:none;">
+    <div class="row text-center" style="padding:0px;height:100%">
+      <div class="col">
+        <a class="item" href="#/onboarding/question_feed_me">
+          <img src="img/me.svg" />
+          <i>For Me</i>
+        </a>
+      </div>
+      <div class="col">
+        <a class="item" href="#/onboarding/question_feed">
+          <img src="img/everyone.svg" />
+          <i>For Everyone</i>
+        </a>
+      </div>
+      <div class="col">
+        <a class="item" href="#/topics">
+          <img src="img/topics.svg" />
+          <i>Topics</i>
+        </a>
+      </div>
+      <div class="col">
+        <a ng-show="!isDemo" class="item" href="#/ask" >
+          <img src="img/ask.svg" />
+          <i>Ask</i>
+        </a>
+        <a ng-show="isDemo" class="item" href="#/demo-ask">
+          <img src="img/ask.svg" />
+          <i>Ask</i>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <ion-pane>
+    <ion-header-bar class="bar-subheader fold-down-menu bar-stable">
+      <ion-content style="top:10px;margin:0px;padding:10px;">
+        <div class="list">
+          <a ng-show="!isDemo" class="item item-button-right ion-mic-a" href="#/ask"><span>Ask a Question</span></a>
+          <a ng-show="isDemo" class="item menu-item-icon ion-mic-a" href="#/demo-ask"><span>Ask a Question</span></a>
+
+          <a ng-show="isDemo" class="item menu-item-icon ion-key" href="#/onboarding/1invitation"><span>Sign Up</span></a>
+          <a ng-show="!isDemo" class="item menu-item-icon ion-key" href="#/onboarding/profile"><span>My Profile</span></a>
+          <a ng-show="isDemo" class="item menu-item-icon ion-log-in" href="#/onboarding/1invitation"><span>Log In</span></a>
+          <a ng-show="!isDemo" class="item menu-item-icon ion-log-in" href="#/onboarding/logout" ng-click="logOut()"><span>Log Out</span></a>
+        </div>
+
+        <div class="row fold-down-menu-image-grid">
+          <div class="col">
+            <a class="item" href="#">
+              <img src="img/1.png">
+            </a>
+          </div>
+          <div class="col">
+            <a class="item" href="#">
+              <img src="img/2.png">
+            </a>
+          </div>
+          <div class="col">
+            <a class="item" href="#">
+              <img src="img/3.png">
+            </a>
+          </div>
+          <div class="col">
+            <a class="item" href="#">
+              <img src="img/4.png">
+            </a>
+          </div>
+        </div>
+
+        <div class="row fold-down-menu-image-grid">
+          <div class="col">
+            <a class="item" href="#">
+              <img src="img/5.png">
+            </a>
+          </div>
+          <div class="col">
+            <a class="item" href="#">
+              <img src="img/6.png">
+            </a>
+          </div>
+          <div class="col">
+            <a class="item" href="#">
+              <img src="img/7.png">
+            </a>
+          </div>
+          <div class="col">
+            <a class="item" href="#">
+              <img src="img/8.png">
+            </a>
+          </div>
+        </div>
+
+        <!--<div class="list">
+          <a class="item menu-item-icon ion-coffee" href="#/answering"><span>Questions for Me</span></a>
+          <a class="item menu-item-icon ion-ios-world" href="#"><span>Questions for Everyone</span></a>
+          <a class="item menu-item-icon ion-ios-star" href="#"><span>Popular</span></a>
+          <a class="item menu-item-icon ion-ios-shuffle" href="#"><span>Random</span></a>
+        </div>-->
+
+        <div class="row">
+          <div class="col">
+            <a class="item menu-item-icon ion-calculator" href="#/question_feed_for_topic?topic=tech"><span>Technology</span></a>
+          </div>
+          <div class="col">
+            <a class="item menu-item-icon ion-ios-film" href="#/question_feed_for_topic?topic=movies"><span>Movies</span></a>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <a class="item menu-item-icon ion-ios-basketball" href="#/question_feed_for_topic?topic=sport"><span>Sports</span></a>
+          </div>
+          <div class="col">
+            <a class="item menu-item-icon ion-ios-film" href="#/question_feed_for_topic?topic=life"><span>Life</span></a>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <a class="item menu-item-icon ion-videocamera" href="#/question_feed_for_topic?topic=tv"><span>TV</span></a>
+          </div>
+          <div class="col">
+            <a class="item menu-item-icon ion-pizza" href="#/question_feed_for_topic?topic=food"><span>Food</span></a>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <a class="item menu-item-icon ion-code-working" href="#/question_feed_for_topic?topic=work"><span>Work</span></a>
+          </div>
+          <div class="col">
+            <a class="item menu-item-icon ion-android-star-half" href="#/question_feed_for_topic?topic=best"><span>Best Of</span></a>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <a class="item menu-item-icon ion-ios-book" href="#/onboarding/topics_list"><span>see all topics</span></a>
+          </div>
+        </div>
+
+        <div style="padding:8px">
+          <a href="#">Help</a><br />
+          <a href="#">Feedback</a><br />
+          <a href="#/about">About Ask the World</a><br />
+          <a href="#">Contact us</a><br />
+          <br />
+          © 2016 Ask the World.  All rights reserved.<br />
+          <a href="#">Terms</a><br />
+          <a href="#">Privacy</a><br />
+        </div>
+      </ion-content>
+    </ion-header-bar>
+    <ion-nav-bar class="bar-stable">
+      <ion-nav-back-button></ion-nav-back-button>
+    </ion-nav-bar>
+    <ion-nav-view></ion-nav-view>
+  </ion-pane>
+  
+</body>
+</html>
